@@ -131,7 +131,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/BillingPlanWrapper"
+                            "$ref": "#/definitions/BillingPlanPropertiesWrapper"
                         }
                     },
                     "202": {
@@ -170,7 +170,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/EnabledFeaturesWrapper"
+                            "$ref": "#/definitions/EnabledFeaturesPropertiesWrapper"
                         }
                     },
                     "202": {
@@ -212,7 +212,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/LocationWrapper"
+                            "$ref": "#/definitions/LocationPropertiesWrapper"
                         }
                     }
                 },
@@ -366,7 +366,58 @@
                     }
                 },
                 "x-ms-pageable": true
-            }
+            },
+            "delete": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_Delete",
+                "description": "Delete the collection",
+                "parameters": [
+                    {
+                        "name": "resourceGroupName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The name of the resource group"
+                    },
+                    {
+                        "name": "armNamespace",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                    },
+                    {
+                        "name": "collectionName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The automation account name."
+                    },
+                    {
+                        "name": "api-version",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/parameters/SubscriptionIdParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                },
+                "x-ms-pageable": true
+            },
+
+
+
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
             "get": {
@@ -1465,6 +1516,15 @@
                         "$ref": "#/definitions/RemoteAppBillingPlan"
                     },
                     "description": "Available billing plans"
+                         }
+            },
+            "description": "The response for the get locations operation."
+        },
+        "BillingPlanPropertiesWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/BillingPlanWrapper",
+                    "description": "Available billing plans"
                 },
                 "etag": {
                     "type": "string",
@@ -1490,6 +1550,15 @@
                         "type": "string"
                     },
                     "description": "Available billing plans"
+                }
+            },
+            "description": "The properties wrapper for get enabled features."
+        },
+        "EnabledFeaturesPropertiesWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/EnabledFeaturesWrapper",
+                    "description": "Available billing plans"
                 },
                 "etag": {
                     "type": "string",
@@ -1505,7 +1574,7 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "The response for the get locations operation."
+            "description": "The properties wrapper for get enabled features."
         },
         "Location": {
             "properties": {
@@ -1527,6 +1596,15 @@
                     "items": {
                         "$ref": "#/definitions/Location"
                     },
+                    "description": "Available Locations"
+                }
+            },
+            "description": "The response for the get locations operation."
+        },
+        "LocationPropertiesWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/LocationWrapper",
                     "description": "Available Locations"
                 },
                 "etag": {
@@ -2008,7 +2086,7 @@
                     "type": "string",
                     "description": "The application name."
                 },
-                "startMenuAppId": {
+                "id": {
                     "type": "string",
                     "description": "The start menu application id."
                 },
