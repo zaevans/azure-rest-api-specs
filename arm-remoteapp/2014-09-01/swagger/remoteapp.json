@@ -585,8 +585,8 @@
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_ModifyApplication",
-                "description": "Sets a published application matching the given alias (short unique name) in the collection.",
+                "operationId": "Collection_PublishOrUpdateApplication",
+                "description": "Publishes or updates a remote application based on its alias. If this is a new alias this is considered to be a publishing operation. If this is an existing alias the virtual path must not be changed.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -758,68 +758,6 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/PublishedApplicationDetails"
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_PublishApplications",
-                "description": "Publishes remote applications with given application details in the collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "applicationDetailsList",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/ApplicationDetailsList"
-                        },
-                        "description": "List of publishing details"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PublishingOperationResult"
                             }
                         }
                     }
@@ -1056,12 +994,12 @@
                     }
                 }
             },
-            "post": {
+            "put": {
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_AddSecurityPrincipals",
-                "description": "Adds a list of principals to the given collection.",
+                "operationId": "Collection_AddSecurityPrincipal",
+                "description": "Adds a principal to the given collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1085,19 +1023,26 @@
                         "description": "The name of the collection."
                     },
                     {
+                        "name": "userUpn",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The UPN of the user to be added"
+                    },
+                    {
                         "name": "api-version",
                         "in": "query",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "securityPrincipalList",
+                        "name": "securityPrincipal",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/SecurityPrincipalListParameter"
+                            "$ref": "#/definitions/SecurityPrincipal"
                         },
-                        "description": "A list of RemoteApp principals to add."
+                        "description": "A RemoteApp principal to add."
                     },
                     {
                         "$ref": "#/parameters/SubscriptionIdParameter"
@@ -1122,8 +1067,8 @@
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_DeleteSecurityPrincipals",
-                "description": "Deletes a list of principals from the given collection.",
+                "operationId": "Collection_DeleteSecurityPrincipal",
+                "description": "Deletes a principal from the given collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1147,19 +1092,26 @@
                         "description": "The name of the collection."
                     },
                     {
+                        "name": "userUpn",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The UPN of the user to be added"
+                    },
+                    {
                         "name": "api-version",
                         "in": "query",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "securityPrincipalList",
+                        "name": "securityPrincipal",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/SecurityPrincipalListParameter"
+                            "$ref": "#/definitions/SecurityPrincipal"
                         },
-                        "description": "A list of RemoteApp principals to add."
+                        "description": "The RemoteApp principal to add."
                     },
                     {
                         "$ref": "#/parameters/SubscriptionIdParameter"
@@ -1412,6 +1364,54 @@
                     }
                 }
             }
+        },
+        "/subscriptions/{Credentials.SubscriptionId}/providers/{ArmNamespace}/templateImages": {
+            "post": {
+                "tags": [
+                    "TemplateImages"
+                ],
+                "operationId": "TemplateImage_GetTemplateImages",
+                "description": "Sends a message to the specified session",
+                "parameters": [
+                    {
+                        "name": "resourceGroupName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The name of the resource group"
+                    },
+                    {
+                        "name": "armNamespace",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                    },
+                    {
+                        "name": "api-version",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/parameters/SubscriptionIdParameter"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TemplateImage"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1516,7 +1516,7 @@
                         "$ref": "#/definitions/RemoteAppBillingPlan"
                     },
                     "description": "Available billing plans"
-                         }
+                }
             },
             "description": "The response for the get locations operation."
         },
@@ -2349,6 +2349,53 @@
                 }
             ],
             "description": "Operational results of adding or removing a security principal."
+        },
+        "TemplateImage": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The friendly name for the image"
+                },
+                "size": {
+                    "type": "integer",
+                    "format":  "int64",
+                    "description": "The image size in bytes"
+                },
+                "regionList": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The list of regions where the image can be used"
+                },
+                "templateImageType": {
+                    "type": "string",
+                    "description": "The type of the template image.",
+                    "enum": [
+                        "CustomerImage",
+                        "PlatformImage",
+                        "Unknown"
+                    ],
+                    "x-ms-enum": "TemplateImageType"
+                },
+                "trialOnly": {
+                    "type": "boolean",
+                    "description": "A TrialOnly platform template image may be used only during a subscription's RemoteApp trial period. Once billing is activated, a collection using a TrialOnly image will be permanently disabled."
+                },
+                 "officeType": {
+                    "type": "string",
+                    "description": "If the template image for this collection includes Office this will specify the type.",
+                    "enum": [
+                        "None",
+                        "OfficeSAL",
+                        "Office365",
+                        "Unknown"
+                    ],
+                    "x-ms-enum": "OfficeType"
+                },
+
+            },
+            "description": "Details of a template image"
         },
         "Resource": {
             "properties": {
