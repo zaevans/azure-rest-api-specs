@@ -1055,11 +1055,9 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
-                            }
+                          "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
                         }
+                        
                     }
                 }
             },
@@ -1121,14 +1119,12 @@
                     "202": {
                         "description": ""
                     },
-                    "200": {
+                   "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
-                            }
+                          "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
                         }
+                        
                     }
                 }
             }
