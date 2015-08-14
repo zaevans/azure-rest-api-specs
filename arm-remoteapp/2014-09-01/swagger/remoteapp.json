@@ -141,45 +141,6 @@
                 "x-ms-pageable": true
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/enabledFeatures": {
-            "get": {
-                "tags": [
-                    "Account"
-                ],
-                "operationId": "Account_Features",
-                "description": "Gets the enabled features of the account.",
-                "parameters": [
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/EnabledFeaturesPropertiesWrapper"
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                },
-                "x-ms-pageable": true
-            }
-        },
         "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/locations": {
             "get": {
                 "tags": [
@@ -281,7 +242,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "The name of the collection to create"
+                        "description": "The name of the collection"
                     },
                     {
                         "name": "api-version",
@@ -290,7 +251,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "createDetails",
+                        "name": "details",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -342,7 +303,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "The automation account name."
+                        "description": "Name of the RemoteApp collection"
                     },
                     {
                         "name": "api-version",
@@ -393,7 +354,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "The automation account name."
+                        "description": "Name of the RemoteApp collection"
                     },
                     {
                         "name": "api-version",
@@ -446,7 +407,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "The automation account name."
+                        "description": "Name of the RemoteApp collection"
                     },
                     {
                         "name": "api-version",
@@ -586,7 +547,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_PublishOrUpdateApplication",
-                "description": "Publishes or updates a remote application based on its alias. If this is a new alias this is considered to be a publishing operation. If this is an existing alias the virtual path must not be changed.",
+                "description": "Publishes a new application or updates a previously published application.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -614,7 +575,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Alias of published application"
+                        "description": "Alias of the application"
                     },
                     {
                         "name": "api-version",
@@ -629,7 +590,7 @@
                         "schema": {
                             "$ref": "#/definitions/ApplicationDetails"
                         },
-                        "description": "Details of Applicaton to publish"
+                        "description": "Details of the applicaton to publish or modify"
                     },
                     {
                         "$ref": "#/parameters/SubscriptionIdParameter"
@@ -653,7 +614,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_Unpublish",
-                "description": "Unpublishes published applications matching the application alias (short unique name) from the collection.",
+                "description": "Unpublishes published application matching the application alias (short unique name) from the collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -697,10 +658,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
                                 "$ref": "#/definitions/PublishingOperationResult"
-                            }
                         }
                     },
                     "202": {
@@ -715,7 +673,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_GetStartMenuApp",
-                "description": "Gets the specified application available in this collection.",
+                "description": "Gets the specified Start Menu application available in this collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -879,68 +837,13 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications/unpublishAll": {
-            "delete": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_UnpublishAll",
-                "description": "Unpublishes all published applications from the collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PublishingOperationResult"
-                            }
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/securityPrincipals": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users": {
             "get": {
                 "tags": [
                     "Collection"
                 ],
                 "operationId": "Collection_GetUsers",
-                "description": "Gets a list of all RemoteApp principals associated with the given collection.",
+                "description": "Gets a list of all RemoteApp users associated with the given collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -962,13 +865,6 @@
                         "required": true,
                         "type": "string",
                         "description": "The name of the collection."
-                    },
-                    {
-                        "name": "prevToken",
-                        "in": "query",
-                        "required": false,
-                        "type": "string",
-                        "description": "Pass in an empty string the first tinme this call is made. Afterwards pass in the continuation token returned by the previous call. The stopping condition is when the previous token is null."
                     },
                     {
                         "name": "api-version",
@@ -997,7 +893,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_AddSecurityPrincipal",
-                "description": "Adds a principal to the given collection.",
+                "description": "Adds a user to the given collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1064,7 +960,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_DeleteSecurityPrincipal",
-                "description": "Deletes a principal from the given collection.",
+                "description": "Deletes a user from the given collection.",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1092,7 +988,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "The UPN of the user to be added"
+                        "description": "The UPN of the user to be removed"
                     },
                     {
                         "name": "api-version",
@@ -1107,7 +1003,7 @@
                         "schema": {
                             "$ref": "#/definitions/SecurityPrincipal"
                         },
-                        "description": "The RemoteApp principal to add."
+                        "description": "The RemoteApp user to remove."
                     },
                     {
                         "$ref": "#/parameters/SubscriptionIdParameter"
@@ -1188,7 +1084,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_SessionDisconnect",
-                "description": "Disconnects the specified session",
+                "description": "Disconnects the specified user",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1216,7 +1112,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "User Upn"
+                        "description": "User to disconnect"
                     },
                     {
                         "name": "api-version",
@@ -1244,7 +1140,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_SessionLogOff",
-                "description": "Logs off the specified session",
+                "description": "Logs off the specified user",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1272,7 +1168,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "User Upn"
+                        "description": "User to log off"
                     },
                     {
                         "name": "api-version",
@@ -1300,7 +1196,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_SessionSendMessage",
-                "description": "Sends a message to the specified session",
+                "description": "Sends a message to the specified user",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1328,7 +1224,7 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "User Upn"
+                        "description": "User to send a message to"
                     },
                     {
                         "name": "api-version",
@@ -1360,12 +1256,12 @@
             }
         },
         "/subscriptions/{Credentials.SubscriptionId}/providers/{ArmNamespace}/templateImages": {
-            "post": {
+            "get": {
                 "tags": [
                     "TemplateImages"
                 ],
                 "operationId": "TemplateImage_GetTemplateImages",
-                "description": "Sends a message to the specified session",
+                "description": "Gets available template images",
                 "parameters": [
                     {
                         "name": "resourceGroupName",
@@ -1444,7 +1340,7 @@
                 },
                 "privacyUrl": {
                     "type": "string",
-                    "description": "admin defined URL to the privacy statement"
+                    "description": "Admin-defined URL to the privacy statement"
                 },
                 "location": {
                     "type": "string",
@@ -1647,11 +1543,11 @@
                 },
                 "OrganizationalUnit": {
                     "type": "string",
-                    "description": "The name of your organizational unit to join the RD Session Host servers, e.g. OU=MyOu,DC=MyDomain,DC=ParentDomain,DC=com. Attributes such as OU, DC, etc. must be in uppercase."
+                    "description": "The name of your domain's organizational unit to assign the RD Session Host servers to, e.g. OU=MyOu,DC=MyDomain,DC=ParentDomain,DC=com. Attributes such as OU, DC, etc. must be in uppercase."
                 },
                 "ServiceAccountUserName": {
                     "type": "string",
-                    "description": "The user name of a service account that has permission to add computers to the domain.The username must be specified in the UPN or down-level logon name format (user@some.domain or some.domain\\user)."
+                    "description": "The user name of a service account that has permission to add computers to the domain. The username must be specified in the UPN or down-level logon name format (user@some.domain or some.domain\\user)."
                 },
                 "ServiceAccountPassword": {
                     "type": "string",
