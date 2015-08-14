@@ -385,12 +385,8 @@
                         "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "alias",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The alias for the application."
-                    },
+                        "$ref": "#/parameters/alias"
+                    },                    
                     {
                         "$ref": "#/parameters/apiVersion"
                     },
@@ -427,11 +423,7 @@
                         "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "alias",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Alias of the application"
+                        "$ref": "#/parameters/alias"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -481,11 +473,7 @@
                         "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "name": "alias",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "application alias to be unpublished"
+                        "$ref": "#/parameters/alias"
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
@@ -841,7 +829,6 @@
                 }
             }
         },
-
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/disconnect": {
             "post": {
                 "tags": [
@@ -2051,12 +2038,19 @@
             "type": "string",
             "description": "The collection name."
         },
-        "userUpn":  {
+        "userUpn": {
             "name": "userUpn",
             "in": "path",
             "required": true,
             "type": "string",
             "description": "The UPN of the user"
+        },
+        "alias":  {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The alias for the application."
         }
     }
 }
