@@ -98,8 +98,7 @@
                             "$ref": "#/definitions/GetRemoteAppAccount"
                         }
                     }
-                },
-                "x-ms-pageable": true
+                }
             }
         },
         "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billingPlans": {
@@ -274,7 +273,6 @@
                         }
                     }
                 },
-                "x-ms-pageable": true,
                 "x-ms-long-running-operation": true
             },
             "get": {
@@ -373,12 +371,8 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
-            },
-
-
-
+                }
+            }
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
             "get": {
@@ -606,8 +600,7 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
+                }
             },
             "delete": {
                 "tags": [
