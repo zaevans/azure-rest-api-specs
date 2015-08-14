@@ -52,8 +52,7 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
+                }
             },
             "put": {
                 "tags": [
@@ -136,8 +135,7 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
+                }
             }
         },
         "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/locations": {
@@ -175,8 +173,7 @@
                             "$ref": "#/definitions/LocationPropertiesWrapper"
                         }
                     }
-                },
-                "x-ms-pageable": true
+                }
             }
         },
         "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billing": {
@@ -323,8 +320,7 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
+                }
             },
             "delete": {
                 "tags": [
@@ -533,8 +529,7 @@
                     "202": {
                         "description": ""
                     }
-                },
-                "x-ms-pageable": true
+                }
             },
             "put": {
                 "tags": [
@@ -716,8 +711,7 @@
                             "$ref": "#/definitions/StartMenuApplication"
                         }
                     }
-                },
-                "x-ms-pageable": true
+                }
             }
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications": {
@@ -2044,18 +2038,6 @@
                 }
             ],
             "description": "Details of publishing / unpublishing operation results."
-        },
-        "AliasesListParameter": {
-            "properties": {
-                "aliases": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "List of applications aliases (short unique names)."
-                }
-            },
-            "description": "Parameter definition for AliasesList, used by remote app unpublishing operations."
         },
         "SecurityPrincipalInfoProperties": {
             "properties": {
