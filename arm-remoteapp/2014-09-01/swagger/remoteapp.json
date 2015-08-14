@@ -26,20 +26,13 @@
                 "description": "Gets the account associated with the subscription id.",
                 "parameters": [
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -62,17 +55,10 @@
                 "description": "Updates the account PrivacyUrl and WorkspaceName.",
                 "parameters": [
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
                         "name": "accountInfo",
@@ -84,7 +70,7 @@
                         "description": "The new PrivacyUrl and WorkspaceName"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -100,6 +86,34 @@
                 }
             }
         },
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billing": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "operationId": "Account_ActivateAccountBilling",
+                "description": "Activates billing for the account",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billingPlans": {
             "get": {
                 "tags": [
@@ -109,20 +123,13 @@
                 "description": "Gets the available billing plans for the account.",
                 "parameters": [
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -147,20 +154,13 @@
                 "description": "Gets the supported locations to create collections.",
                 "parameters": [
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -176,36 +176,38 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billing": {
-            "post": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections": {
+            "get": {
                 "tags": [
-                    "Account"
+                    "Collection"
                 ],
-                "operationId": "Account_ActivateAccountBilling",
-                "description": "Activates billing for the account",
+                "operationId": "Collection_List",
+                "description": "Gets the list of collections details in the resource group.",
                 "parameters": [
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
-                    "202": {
-                        "description": ""
-                    },
                     "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Collection"
+                            }
+                        }
+                    },
+                    "202": {
                         "description": ""
                     }
                 }
@@ -219,32 +221,17 @@
                 "operationId": "Collection_CreateOrUpdate",
                 "description": "Create or update a collection.",
                 "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection"
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
                         "name": "details",
@@ -256,7 +243,7 @@
                         "description": "The details of the created or updated collection"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -280,34 +267,19 @@
                 "description": "Gets the collection details.",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Name of the RemoteApp collection"
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -330,34 +302,19 @@
                 "description": "Delete the collection",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Name of the RemoteApp collection"
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -370,105 +327,42 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications": {
             "get": {
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_GetUsageSummary",
-                "description": "Gets the collection details.",
+                "operationId": "Collection_ListPublishedApp",
+                "description": "Gets the list of published applications in this collection.",
                 "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Name of the RemoteApp collection"
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
+                    "202": {
+                        "description": ""
+                    },
                     "200": {
                         "description": "",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/CollectionUsageSummary"
+                                "$ref": "#/definitions/PublishedApplicationDetails"
                             }
                         }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_List",
-                "description": "Gets the list of collections details in the resource group.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Collection"
-                            }
-                        }
-                    },
-                    "202": {
-                        "description": ""
                     }
                 }
             }
@@ -482,25 +376,13 @@
                 "description": "Gets the specified published application in this collection.",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "name": "alias",
@@ -510,13 +392,10 @@
                         "description": "The alias for the application."
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -539,25 +418,13 @@
                 "description": "Publishes a new application or updates a previously published application.",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "name": "alias",
@@ -567,10 +434,7 @@
                         "description": "Alias of the application"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
                         "name": "applicationDetails",
@@ -582,7 +446,7 @@
                         "description": "Details of the applicaton to publish or modify"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -605,407 +469,37 @@
                 "description": "Unpublishes published application matching the application alias (short unique name) from the collection.",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
                         "name": "alias",
                         "in": "path",
                         "required": true,
-                        "type":  "string",
+                        "type": "string",
                         "description": "application alias to be unpublished"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "",
                         "schema": {
-                                "$ref": "#/definitions/PublishingOperationResult"
+                            "$ref": "#/definitions/PublishingOperationResult"
                         }
                     },
                     "202": {
                         "description": ""
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps/{applicationId}": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_GetStartMenuApp",
-                "description": "Gets the specified Start Menu application available in this collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "applicationId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The identifier of the application."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/StartMenuApplication"
-                        }
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_ListPublishedApp",
-                "description": "Gets the list of published applications in this collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PublishedApplicationDetails"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_ListStartMenuApps",
-                "description": "Gets the list of applications available in this collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StartMenuApplication"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_GetUsers",
-                "description": "Gets a list of all RemoteApp users associated with the given collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/SecurityPrincipalInfoListResult"
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_AddSecurityPrincipal",
-                "description": "Adds a user to the given collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "userUpn",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The UPN of the user to be added"
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "securityPrincipal",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/SecurityPrincipal"
-                        },
-                        "description": "A RemoteApp principal to add."
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                          "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
-                        }
-                        
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_DeleteSecurityPrincipal",
-                "description": "Deletes a user from the given collection.",
-                "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
-                    },
-                    {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
-                    },
-                    {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the collection."
-                    },
-                    {
-                        "name": "userUpn",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The UPN of the user to be removed"
-                    },
-                    {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "securityPrincipal",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/SecurityPrincipal"
-                        },
-                        "description": "The RemoteApp user to remove."
-                    },
-                    {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                   "200": {
-                        "description": "",
-                        "schema": {
-                          "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
-                        }
-                        
                     }
                 }
             }
@@ -1019,34 +513,19 @@
                 "description": "Gets a list of sessions on the current collection",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The collection name."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -1065,6 +544,304 @@
                 }
             }
         },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_ListStartMenuApps",
+                "description": "Gets the list of applications available in this collection.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StartMenuApplication"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps/{applicationId}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetStartMenuApp",
+                "description": "Gets the specified Start Menu application available in this collection.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "name": "applicationId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The identifier of the application."
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/StartMenuApplication"
+                        }
+                    }
+                }
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUsageSummary",
+                "description": "Gets the collection details.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CollectionUsageSummary"
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUsers",
+                "description": "Gets a list of all RemoteApp users associated with the given collection.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipalInfoListResult"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUser",
+                "description": "Gets a RemoteApp user by their UPN.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/userUpn"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipalInfo"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_AddSecurityPrincipal",
+                "description": "Adds a user to the given collection.",
+                "parameters": [
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/userUpn"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "name": "securityPrincipal",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipal"
+                        },
+                        "description": "A RemoteApp user to add."
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
+                        }
+
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_DeleteSecurityPrincipal",
+                "description": "Deletes a user from the given collection.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/userUpn"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "name": "securityPrincipal",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipal"
+                        },
+                        "description": "The RemoteApp user to remove."
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/SecurityPrincipalOperationErrorDetails"
+                        }
+
+                    }
+                }
+            }
+        },
+
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/disconnect": {
             "post": {
                 "tags": [
@@ -1074,41 +851,22 @@
                 "description": "Disconnects the specified user",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The collection name."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "userUpn",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "User to disconnect"
+                        "$ref": "#/parameters/userUpn"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -1129,42 +887,23 @@
                 "operationId": "Collection_SessionLogOff",
                 "description": "Logs off the specified user",
                 "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The collection name."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "userUpn",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "User to log off"
+                        "$ref": "#/parameters/userUpn"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -1186,38 +925,19 @@
                 "description": "Sends a message to the specified user",
                 "parameters": [
                     {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "collectionName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The collection name."
+                        "$ref": "#/parameters/collectionName"
                     },
                     {
-                        "name": "userUpn",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "User to send a message to"
+                        "$ref": "#/parameters/userUpn"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
                         "name": "messageDetails",
@@ -1229,7 +949,7 @@
                         "description": "Session message details"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -1242,7 +962,7 @@
                 }
             }
         },
-        "/subscriptions/{Credentials.SubscriptionId}/providers/{ArmNamespace}/templateImages": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -1250,28 +970,17 @@
                 "operationId": "TemplateImage_GetTemplateImages",
                 "description": "Gets available template images",
                 "parameters": [
-                    {
-                        "name": "resourceGroupName",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "The name of the resource group"
+                   {
+                        "$ref": "#/parameters/resourceGroupName"
                     },
                     {
-                        "name": "armNamespace",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Azure Resource Manager namespace for RemoteApp service environments."
+                        "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "api-version",
-                        "in": "query",
-                        "required": true,
-                        "type": "string"
+                        "$ref": "#/parameters/apiVersion"
                     },
                     {
-                        "$ref": "#/parameters/SubscriptionIdParameter"
+                        "$ref": "#/parameters/subscriptionId"
                     }
                 ],
                 "responses": {
@@ -2223,7 +1932,7 @@
                 },
                 "size": {
                     "type": "integer",
-                    "format":  "int64",
+                    "format": "int64",
                     "description": "The image size in bytes"
                 },
                 "regionList": {
@@ -2247,7 +1956,7 @@
                     "type": "boolean",
                     "description": "A TrialOnly platform template image may be used only during a subscription's RemoteApp trial period. Once billing is activated, a collection using a TrialOnly image will be permanently disabled."
                 },
-                 "officeType": {
+                "officeType": {
                     "type": "string",
                     "description": "If the template image for this collection includes Office this will specify the type.",
                     "enum": [
@@ -2306,20 +2015,48 @@
             "x-ms-external": true
         }
     },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
-    },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client Api Version."
+    "parameters": {
+        "apiVersion": {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Client Api Version."
+        },
+        "subscriptionId": {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "A Microsoft Azure subscription ID."
+        },
+        "resourceGroupName": {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group"
+        },
+        "armNamespace": {
+            "name": "armNamespace",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Azure Resource Manager namespace for RemoteApp service environments."
+        },
+        "collectionName": {
+            "name": "collectionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The collection name."
+        },
+        "userUpn":  {
+            "name": "userUpn",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The UPN of the user"
+        }
     }
-  }
 }
