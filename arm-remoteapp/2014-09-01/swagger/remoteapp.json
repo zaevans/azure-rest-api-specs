@@ -176,6 +176,43 @@
                 }
             }
         },
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
+            "get": {
+                "tags": [
+                    "TemplateImages"
+                ],
+                "operationId": "TemplateImage_GetTemplateImages",
+                "description": "Gets available template images",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TemplateImage"
+                            }
+                        }
+                    }
+                }
+            }
+        }
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections": {
             "get": {
                 "tags": [
@@ -214,6 +251,41 @@
             }
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_Get",
+                "description": "Gets the collection details.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/resourceGroupName"
+                    },
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/collectionName"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Collection"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "Collection"
@@ -221,7 +293,7 @@
                 "operationId": "Collection_CreateOrUpdate",
                 "description": "Create or update a collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -258,42 +330,7 @@
                     }
                 },
                 "x-ms-long-running-operation": true
-            },
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_Get",
-                "description": "Gets the collection details.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/Collection"
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            },
+            },        
             "delete": {
                 "tags": [
                     "Collection"
@@ -335,7 +372,7 @@
                 "operationId": "Collection_ListPublishedApp",
                 "description": "Gets the list of published applications in this collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -386,7 +423,7 @@
                     },
                     {
                         "$ref": "#/parameters/alias"
-                    },                    
+                    },
                     {
                         "$ref": "#/parameters/apiVersion"
                     },
@@ -540,7 +577,7 @@
                 "operationId": "Collection_ListStartMenuApps",
                 "description": "Gets the list of applications available in this collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -580,7 +617,7 @@
                 "operationId": "Collection_GetStartMenuApp",
                 "description": "Gets the specified Start Menu application available in this collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -624,7 +661,7 @@
                 "operationId": "Collection_GetUsageSummary",
                 "description": "Gets the collection details.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -664,7 +701,7 @@
                 "operationId": "Collection_GetUsers",
                 "description": "Gets a list of all RemoteApp users associated with the given collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -701,7 +738,7 @@
                 "operationId": "Collection_GetUser",
                 "description": "Gets a RemoteApp user by their UPN.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -739,7 +776,7 @@
                 "operationId": "Collection_AddSecurityPrincipal",
                 "description": "Adds a user to the given collection.",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -874,7 +911,7 @@
                 "operationId": "Collection_SessionLogOff",
                 "description": "Logs off the specified user",
                 "parameters": [
-                   {
+                    {
                         "$ref": "#/parameters/resourceGroupName"
                     },
                     {
@@ -949,43 +986,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
-            "get": {
-                "tags": [
-                    "TemplateImages"
-                ],
-                "operationId": "TemplateImage_GetTemplateImages",
-                "description": "Gets available template images",
-                "parameters": [
-                   {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/TemplateImage"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
     },
     "definitions": {
         "RemoteAppAccountDetails": {
