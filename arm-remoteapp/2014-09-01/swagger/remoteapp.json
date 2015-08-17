@@ -1186,7 +1186,7 @@
                     "description": "Available billing plans"
                 }
             },
-            "description": "The response for the get locations operation."
+            "description": "The response for the get billing plans operation."
         },
         "BillingPlanPropertiesWrapper": {
             "properties": {
@@ -1208,7 +1208,7 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "The response for the get locations operation."
+            "description": "The response for the get billing plans operation."
         },
         "Location": {
             "properties": {
@@ -1573,7 +1573,7 @@
                 },
                 "customRdpProperty": {
                     "type": "string",
-                    "description": "Optional customer defined RDP properties of the collection."
+                    "description": "Optional customer-defined RDP properties of the collection."
                 },
                 "readyForPublishing": {
                     "type": "boolean",
@@ -1582,7 +1582,7 @@
                 "lastModifiedTimeUtc": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "UTC Date time of the last modification of this collection."
+                    "description": "UTC date and time of the last modification of this collection."
                 },
                 "mode": {
                     "type": "string",
@@ -1729,7 +1729,7 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "Definition containing details of Start Menu Applications."
+            "description": "Definition containing details of Start Menu applications."
         },
         "PublishingDetails": {
             "properties": {
