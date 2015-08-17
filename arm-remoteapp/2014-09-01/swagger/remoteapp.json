@@ -1186,7 +1186,7 @@
                     "description": "Available billing plans"
                 }
             },
-            "description": "The response for the get locations operation."
+            "description": "The response for the get billing plans operation."
         },
         "BillingPlanPropertiesWrapper": {
             "properties": {
@@ -1208,7 +1208,7 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "The response for the get locations operation."
+            "description": "The response for the get billing plans operation."
         },
         "Location": {
             "properties": {
