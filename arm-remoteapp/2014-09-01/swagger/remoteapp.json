@@ -39,7 +39,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/GetRemoteAppAccount"
+                            "$ref": "#/definitions/AccountDetailsWrapper"
                         }
                     },
                     "202": {
@@ -65,7 +65,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UpdateRemoteAppAccount"
+                            "$ref": "#/definitions/AccountDetailsWrapper"
                         },
                         "description": "The new PrivacyUrl and WorkspaceName"
                     },
@@ -80,7 +80,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/GetRemoteAppAccount"
+                            "$ref": "#/definitions/AccountDetailsWrapper"
                         }
                     }
                 }
@@ -185,9 +185,6 @@
                 "description": "Gets available template images",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
@@ -212,7 +209,7 @@
                     }
                 }
             }
-        }
+        },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections": {
             "get": {
                 "tags": [
@@ -221,9 +218,6 @@
                 "operationId": "Collection_List",
                 "description": "Gets the list of collections details in the resource group.",
                 "parameters": [
-                    {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
                     {
                         "$ref": "#/parameters/armNamespace"
                     },
@@ -248,7 +242,16 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}": {
             "get": {
@@ -259,13 +262,7 @@
                 "description": "Gets the collection details.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -294,13 +291,7 @@
                 "description": "Create or update a collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -330,7 +321,7 @@
                     }
                 },
                 "x-ms-long-running-operation": true
-            },        
+            },
             "delete": {
                 "tags": [
                     "Collection"
@@ -339,13 +330,7 @@
                 "description": "Delete the collection",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -362,7 +347,23 @@
                         "description": ""
                     }
                 }
-            }
+            },
+           "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications": {
             "get": {
@@ -373,13 +374,7 @@
                 "description": "Gets the list of published applications in this collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -402,7 +397,23 @@
                         }
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/applications/{alias}": {
             "get": {
@@ -413,16 +424,7 @@
                 "description": "Gets the specified published application in this collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/alias"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -451,16 +453,7 @@
                 "description": "Publishes a new application or updates a previously published application.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/alias"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -498,19 +491,10 @@
                 "description": "Unpublishes published application matching the application alias (short unique name) from the collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
                         "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/alias"
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
@@ -527,7 +511,30 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "alias",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The alias for the application."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/sessions": {
             "get": {
@@ -538,13 +545,7 @@
                 "description": "Gets a list of sessions on the current collection",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -567,7 +568,23 @@
                         "description": ""
                     }
                 }
-            }
+            },
+           "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps": {
             "get": {
@@ -578,13 +595,7 @@
                 "description": "Gets the list of applications available in this collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -607,7 +618,23 @@
                         }
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/startMenuApps/{applicationId}": {
             "get": {
@@ -618,13 +645,7 @@
                 "description": "Gets the specified Start Menu application available in this collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "name": "applicationId",
@@ -651,7 +672,23 @@
                         }
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
             "get": {
@@ -662,13 +699,7 @@
                 "description": "Gets the collection details.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -691,7 +722,23 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users": {
             "get": {
@@ -702,13 +749,7 @@
                 "description": "Gets a list of all RemoteApp users associated with the given collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -728,7 +769,23 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}": {
             "get": {
@@ -739,19 +796,10 @@
                 "description": "Gets a RemoteApp user by their UPN.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
                         "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
@@ -777,16 +825,7 @@
                 "description": "Adds a user to the given collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -825,16 +864,7 @@
                 "description": "Deletes a user from the given collection.",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -864,7 +894,30 @@
 
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/disconnect": {
             "post": {
@@ -875,16 +928,7 @@
                 "description": "Disconnects the specified user",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -901,7 +945,30 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/logoff": {
             "post": {
@@ -912,16 +979,7 @@
                 "description": "Logs off the specified user",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -938,7 +996,30 @@
                         "description": ""
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
         },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/sendMessage": {
             "post": {
@@ -949,16 +1030,7 @@
                 "description": "Sends a message to the specified user",
                 "parameters": [
                     {
-                        "$ref": "#/parameters/resourceGroupName"
-                    },
-                    {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/collectionName"
-                    },
-                    {
-                        "$ref": "#/parameters/userUpn"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -984,12 +1056,34 @@
                         "description": ""
                     }
                 }
-            }
-        },
-
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        }
     },
     "definitions": {
-        "RemoteAppAccountDetails": {
+        "AccountDetails": {
             "properties": {
                 "id": {
                     "type": "string",
@@ -1033,10 +1127,10 @@
             },
             "description": "The details of an account."
         },
-        "GetRemoteAppAccount": {
+        "AccountDetailsWrapper": {
             "properties": {
                 "properties": {
-                    "$ref": "#/definitions/RemoteAppAccountDetails",
+                    "$ref": "#/definitions/AccountDetails",
                     "description": "Account properties"
                 },
                 "etag": {
@@ -1053,9 +1147,9 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "The response for the get account operation."
+            "description": "A wrapper for account details to be used as a parameter and a response."
         },
-        "RemoteAppBillingPlan": {
+        "BillingPlan": {
             "properties": {
                 "planId": {
                     "type": "string",
@@ -1082,12 +1176,12 @@
             },
             "description": "Contains details of a billing plan."
         },
-        "BillingPlanWrapper": {
+       "BillingPlanWrapper": {
             "properties": {
                 "plans": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/RemoteAppBillingPlan"
+                        "$ref": "#/definitions/BillingPlan"
                     },
                     "description": "Available billing plans"
                 }
@@ -1115,40 +1209,6 @@
                 }
             ],
             "description": "The response for the get locations operation."
-        },
-        "EnabledFeaturesWrapper": {
-            "properties": {
-                "features": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Available billing plans"
-                }
-            },
-            "description": "The properties wrapper for get enabled features."
-        },
-        "EnabledFeaturesPropertiesWrapper": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/EnabledFeaturesWrapper",
-                    "description": "Available billing plans"
-                },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "The properties wrapper for get enabled features."
         },
         "Location": {
             "properties": {
@@ -1197,28 +1257,6 @@
             ],
             "description": "The response for the get locations operation."
         },
-        "UpdateRemoteAppAccount": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/RemoteAppAccountDetails",
-                    "description": "Account properties"
-                },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "The response for the get account operation."
-        },
         "ActiveDirectoryConfig": {
             "properties": {
                 "DomainName": {
@@ -1248,7 +1286,7 @@
                 },
                 "virtualPath": {
                     "type": "string",
-                    "description": "The application image path on the destination machine specified with environment variables for the drive and known system path."
+                    "description": "Path to the application.  The path should reference default operating system environment variables such as %ProgramFiles%, %ProgramFiles(x86)%, %SystemRoot%, etc. where possible.  For example, use '%SystemRoot%\\notepad.exe' rather than 'C:\\Windows\\notepad.exe'."
                 },
                 "alias": {
                     "type": "string",
@@ -1256,11 +1294,11 @@
                 },
                 "availableToUsers": {
                     "type": "boolean",
-                    "description": "A flag to denote if the application will be available to the end user."
+                    "description": "A flag to denote if the application will be available to end users."
                 },
                 "commandLineArguments": {
                     "type": "string",
-                    "description": "The command line arguments to launch the application."
+                    "description": "Optional command-line arguments to pass to the application."
                 },
                 "iconUri": {
                     "type": "string",
@@ -1378,7 +1416,7 @@
                 },
                 "customRdpProperty": {
                     "type": "string",
-                    "description": "Optional customer defined RDP properties of the collection."
+                    "description": "Optional customer-defined RDP properties of the collection."
                 },
                 "readyForPublishing": {
                     "type": "boolean",
@@ -1796,7 +1834,7 @@
             },
             "description": "The list of principals and their consent statuses."
         },
-        "RemoteAppSession": {
+        "Session": {
             "properties": {
                 "logonTimeUtc": {
                     "type": "string",
@@ -1824,7 +1862,7 @@
         "SessionWrapper": {
             "properties": {
                 "properties": {
-                    "$ref": "#/definitions/RemoteAppSession",
+                    "$ref": "#/definitions/Session",
                     "description": "A RemoteApp session"
                 },
                 "etag": {
@@ -1954,8 +1992,12 @@
                         "Unknown"
                     ],
                     "x-ms-enum": "OfficeType"
+                },
+                "uploadCompleteTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time when the image upload was completed."
                 }
-
             },
             "description": "Details of a template image"
         },
@@ -2018,40 +2060,12 @@
             "type": "string",
             "description": "A Microsoft Azure subscription ID."
         },
-        "resourceGroupName": {
-            "name": "resourceGroupName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the resource group"
-        },
         "armNamespace": {
             "name": "armNamespace",
             "in": "path",
             "required": true,
             "type": "string",
             "description": "Azure Resource Manager namespace for RemoteApp service environments."
-        },
-        "collectionName": {
-            "name": "collectionName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The collection name."
-        },
-        "userUpn": {
-            "name": "userUpn",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The UPN of the user"
-        },
-        "alias":  {
-            "name": "alias",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The alias for the application."
         }
     }
 }
