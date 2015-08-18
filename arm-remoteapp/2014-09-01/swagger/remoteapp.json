@@ -1542,17 +1542,6 @@
                     "type": "string",
                     "description": "The collection's name"
                 },
-                "provisioningState": {
-                    "type": "string",
-                    "description": "The collection provisioning state.",
-                    "enum": [
-                        "Failed",
-                        "Succeeded",
-                        "Cancelled",
-                        "InProgress"
-                    ],
-                    "x-ms-enum": "ProvisioningState"
-                },
                 "description": {
                     "type": "string",
                     "description": "A description for the collection"
