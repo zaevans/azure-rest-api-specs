@@ -348,7 +348,7 @@
                     }
                 }
             },
-           "parameters": [
+            "parameters": [
                 {
                     "name": "collectionName",
                     "in": "path",
@@ -616,7 +616,7 @@
                     }
                 }
             },
-           "parameters": [
+            "parameters": [
                 {
                     "name": "collectionName",
                     "in": "path",
@@ -749,8 +749,8 @@
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_GetUsageSummary",
-                "description": "Gets the collection details.",
+                "operationId": "Collection_GetUsageSummaryList",
+                "description": "Gets a summary of usage data for all users in the collection.",
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
@@ -784,6 +784,104 @@
                     "required": true,
                     "type": "string",
                     "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageDetails": {
+            "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUsageDetails",
+                "description": "Generates a CSV file of collection usage details and returns the URI",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UsageDetailsInfo"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUsageSummary",
+                "description": "Gets a summary of collection usage data for the specified user.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CollectionUsageSummary"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
                 },
                 {
                     "name": "resourceGroupName",
@@ -1230,7 +1328,7 @@
             },
             "description": "Contains details of a billing plan."
         },
-       "BillingPlanWrapper": {
+        "BillingPlanWrapper": {
             "properties": {
                 "plans": {
                     "type": "array",
@@ -1443,6 +1541,17 @@
                 "name": {
                     "type": "string",
                     "description": "The collection's name"
+                },
+                "provisioningState": {
+                    "type": "string",
+                    "description": "The collection provisioning state.",
+                    "enum": [
+                        "Failed",
+                        "Succeeded",
+                        "Cancelled",
+                        "InProgress"
+                    ],
+                    "x-ms-enum": "ProvisioningState"
                 },
                 "description": {
                     "type": "string",
@@ -2054,6 +2163,19 @@
                 }
             },
             "description": "Details of a template image"
+        },
+        "UsageDetailsInfo": {
+            "properties": {
+                "extraData": {
+                    "type": "string",
+                    "description": "URI for the CSV file"
+                },
+                "resultId": {
+                    "type": "string",
+                    "description": "ID of the CSV file creation operation"
+                }
+            },
+            "description":  "URI information about the usage details CSV file"
         },
         "Resource": {
             "properties": {
