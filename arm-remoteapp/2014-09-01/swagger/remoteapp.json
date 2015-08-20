@@ -17,7 +17,35 @@
         "text/json"
     ],
     "paths": {
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account": {
+        "/providers/{armNamespace}/operations": {
+             "get": {
+                "tags": [
+                    "Operations"
+                ],
+                "operationId": "Operations_GetAvailableOperations",
+                "description": "Gets the available RemoteApp operations",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/OperationInfoList"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+        },
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}": {
             "get": {
                 "tags": [
                     "Account"
@@ -86,7 +114,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billing": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/billing": {
             "post": {
                 "tags": [
                     "Account"
@@ -114,7 +142,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/billingPlans": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/billingPlans": {
             "get": {
                 "tags": [
                     "Account"
@@ -145,7 +173,41 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account/locations": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/collections": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_ListSubscriptionCollections",
+                "description": "Gets the list of collections details for the subscription.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Collection"
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/locations": {
             "get": {
                 "tags": [
                     "Account"
@@ -215,7 +277,7 @@
                 "tags": [
                     "Collection"
                 ],
-                "operationId": "Collection_List",
+                "operationId": "Collection_ListResourceGroupCollections",
                 "description": "Gets the list of collections details in the resource group.",
                 "parameters": [
                     {
@@ -558,10 +620,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SessionWrapper"
-                            }
+                            "$ref": "#/definitions/SessionListWrapper"
                         }
                     },
                     "202": {
@@ -592,7 +651,7 @@
                     "Collection"
                 ],
                 "operationId": "Collection_GetSession",
-                "description": "Gets a list of sessions on the current collection",
+                "description": "Gets the specified user's session on the current collection",
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
@@ -744,56 +803,6 @@
                 }
             ]
         },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
-            "get": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_GetUsageSummaryList",
-                "description": "Gets a summary of usage data for all users in the collection.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/CollectionUsageSummary"
-                            }
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                }
-            ]
-        },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageDetails": {
             "post": {
                 "tags": [
@@ -838,6 +847,53 @@
                 }
             ]
         },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetUsageSummaryList",
+                "description": "Gets a summary of usage data for all users in the collection.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CollectionUsageSummaryListWrapper"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
             "get": {
                 "tags": [
@@ -860,7 +916,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/CollectionUsageSummary"
+                            "$ref": "#/definitions/CollectionUsageSummaryWrapper"
                         }
                     },
                     "202": {
@@ -1235,6 +1291,7 @@
         }
     },
     "definitions": {
+
         "AccountDetails": {
             "properties": {
                 "id": {
@@ -1490,52 +1547,6 @@
             },
             "description": "List of application details used to create or update a collection."
         },
-        "SecurityPrincipal": {
-            "properties": {
-                "securityPrincipalType": {
-                    "type": "string",
-                    "description": "The security principal type.",
-                    "enum": [
-                        "User",
-                        "Group"
-                    ],
-                    "x-ms-enum": "PrincipalType"
-                },
-                "userIdType": {
-                    "type": "string",
-                    "description": "The security principal provider type.",
-                    "enum": [
-                        "OrgId",
-                        "MicrosoftAccount"
-                    ],
-                    "x-ms-enum": "PrincipalProviderType"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The security principal name."
-                },
-                "aadObjectId": {
-                    "type": "string",
-                    "description": "For OrgId principals, the principal's Azure ActiveDirectory object ID"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "The security principal description."
-                }
-            },
-            "description": "The application security principal details."
-        },
-        "SecurityPrincipalList": {
-            "properties": {
-                "SecurityPrincipals": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/SecurityPrincipal"
-                    }
-                }
-            },
-            "description": "The list of security principals."
-        },
         "CollectionCreationDetails": {
             "properties": {
                 "name": {
@@ -1676,7 +1687,63 @@
                     "description": "The total usage hours by the user."
                 }
             },
-            "description": "The collection usage billiing summary."
+            "description": "The collection usage billing summary."
+        },
+        "CollectionUsageSummaryWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/CollectionUsageSummary",
+                    "description": "Collection usage summary information."
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "The URL for requesting next page of resources."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "Details of usage summary operation results."
+        },
+        "CollectionUsageSummaryList": {
+            "properties": {
+                "usages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CollectionUsageSummary"
+                    },
+                    "description": "A list of usage summary details"
+                }
+            },
+            "description": "A list of usage summary details"
+        },
+        "CollectionUsageSummaryListWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/CollectionUsageSummaryList",
+                    "description": "List of usage summary details"
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "The URL for requesting next page of resources."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "Details of collection usage summary list operation."
         },
         "CollectionProperties": {
             "properties": {
@@ -1807,6 +1874,66 @@
             ],
             "description": "The response for the get collection operation."
         },
+        "OperationDisplayInfo": {
+            "properties": {
+                "provider": {
+                    "type": "string",
+                    "description": "The name of the resource provider"
+                },
+                "resource": {
+                    "type": "string",
+                    "description": "The name of the related resource"
+                },
+                "operation": {
+                    "type": "string",
+                    "description": "The name of the operation"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the resource"
+                }
+            },
+            "description": "Display information about an operation"
+        },
+        "OperationInfo": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the operation being performed on this particular object."
+                },
+                "display": {
+                    "$ref": "#/definitions/OperationDisplayInfo",
+                    "description": "Display information about the operation"
+                },
+                "origin": {
+                    "type": "string",
+                    "description": "The intended executor of the operation."
+                },
+                "properties": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            },
+            "description": "Information about a particular operation."
+        },
+        "OperationInfoList": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OperationInfo"
+                    },
+                    "description": "A list of operation details"
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description":  "URL to use for request paging."
+                }
+            },
+            "description": "A list of operation details"
+        },
         "PublishedApplicationDetails": {
             "properties": {
                 "properties": {
@@ -1926,6 +2053,52 @@
             ],
             "description": "Details of publishing / unpublishing operation results."
         },
+        "SecurityPrincipal": {
+            "properties": {
+                "securityPrincipalType": {
+                    "type": "string",
+                    "description": "The security principal type.",
+                    "enum": [
+                        "User",
+                        "Group"
+                    ],
+                    "x-ms-enum": "PrincipalType"
+                },
+                "userIdType": {
+                    "type": "string",
+                    "description": "The security principal provider type.",
+                    "enum": [
+                        "OrgId",
+                        "MicrosoftAccount"
+                    ],
+                    "x-ms-enum": "PrincipalProviderType"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The security principal name."
+                },
+                "aadObjectId": {
+                    "type": "string",
+                    "description": "For OrgId principals, the principal's Azure ActiveDirectory object ID"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The security principal description."
+                }
+            },
+            "description": "The application security principal details."
+        },
+        "SecurityPrincipalList": {
+            "properties": {
+                "SecurityPrincipals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecurityPrincipal"
+                    }
+                }
+            },
+            "description": "The list of security principals."
+        },
         "SecurityPrincipalInfoProperties": {
             "properties": {
                 "status": {
@@ -2011,6 +2184,18 @@
             },
             "description": "The details of a session."
         },
+        "SessionList": {
+            "properties": {
+                "sessions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Session"
+                    },
+                    "description": "A list of sessions"
+                }
+            },
+            "description": "The response for the get session list operation."
+        },
         "SessionWrapper": {
             "properties": {
                 "properties": {
@@ -2032,6 +2217,28 @@
                 }
             ],
             "description": "The wrapper for the session object"
+        },
+        "SessionListWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/SessionList",
+                    "description": "A list of RemoteApp sessions"
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "The URL for requesting next page of resources."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "Resource wrapper for the SessionList object"
         },
         "SessionSendMessageCommandParameter": {
             "properties": {
@@ -2164,7 +2371,7 @@
                     "description": "ID of the CSV file creation operation"
                 }
             },
-            "description":  "URI information about the usage details CSV file"
+            "description": "URI information about the usage details CSV file"
         },
         "Resource": {
             "properties": {
