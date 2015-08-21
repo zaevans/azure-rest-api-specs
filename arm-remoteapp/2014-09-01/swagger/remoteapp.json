@@ -18,7 +18,7 @@
     ],
     "paths": {
         "/providers/{armNamespace}/operations": {
-             "get": {
+            "get": {
                 "tags": [
                     "Operations"
                 ],
@@ -45,7 +45,7 @@
                 }
             },
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account": {
             "get": {
                 "tags": [
                     "Account"
@@ -114,7 +114,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/billing": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/billing": {
             "post": {
                 "tags": [
                     "Account"
@@ -142,7 +142,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/billingPlans": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/billingPlans": {
             "get": {
                 "tags": [
                     "Account"
@@ -207,7 +207,7 @@
                 }
             }
         },
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/locations": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations": {
             "get": {
                 "tags": [
                     "Account"
@@ -408,7 +408,8 @@
                     "202": {
                         "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
@@ -620,7 +621,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/SessionListWrapper"
+                            "$ref": "#/definitions/SessionListResult"
                         }
                     },
                     "202": {
@@ -667,10 +668,172 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/SessionWrapper"
+                            "$ref": "#/definitions/Session"
                         }
                     },
                     "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/sessions/{userUpn}/disconnect": {
+            "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_SessionDisconnect",
+                "description": "Disconnects the specified user",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/sessions/{userUpn}/logoff": {
+            "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_SessionLogOff",
+                "description": "Logs off the specified user",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "userUpn",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/sessions/{userUpn}/sendMessage": {
+            "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_SessionSendMessage",
+                "description": "Sends a message to the specified user",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "name": "messageDetails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SessionSendMessageCommandParameter"
+                        },
+                        "description": "Session message details"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
                         "description": ""
                     }
                 }
@@ -869,7 +1032,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/CollectionUsageSummaryListWrapper"
+                            "$ref": "#/definitions/CollectionUsageSummaryListResult"
                         }
                     },
                     "202": {
@@ -916,7 +1079,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/CollectionUsageSummaryWrapper"
+                            "$ref": "#/definitions/CollectionUsageSummary"
                         }
                     },
                     "202": {
@@ -1126,169 +1289,8 @@
                     "description": "The name of the resource group"
                 }
             ]
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/disconnect": {
-            "post": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_SessionDisconnect",
-                "description": "Disconnects the specified user",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "userUpn",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The UPN of the user"
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                }
-            ]
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/logoff": {
-            "post": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_SessionLogOff",
-                "description": "Logs off the specified user",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": ""
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "userUpn",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The UPN of the user"
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                }
-            ]
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users/{userUpn}/sendMessage": {
-            "post": {
-                "tags": [
-                    "Collection"
-                ],
-                "operationId": "Collection_SessionSendMessage",
-                "description": "Sends a message to the specified user",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "name": "messageDetails",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/SessionSendMessageCommandParameter"
-                        },
-                        "description": "Session message details"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": ""
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "userUpn",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The UPN of the user"
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                }
-            ]
         }
+
     },
     "definitions": {
 
@@ -1660,7 +1662,7 @@
             ],
             "description": "Details of collection creation operation results."
         },
-        "CollectionUsageSummary": {
+        "CollectionUsageSummaryProperties": {
             "properties": {
                 "userName": {
                     "type": "string",
@@ -1689,19 +1691,44 @@
             },
             "description": "The collection usage billing summary."
         },
-        "CollectionUsageSummaryWrapper": {
+        "CollectionUsageSummaryListItemProperties": {
+            "properties": {
+                "userName": {
+                    "type": "string",
+                    "description": "The user's UPN."
+                },
+                "includedUsage": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "The number of hours used which are included in the billing plan's base rate."
+                },
+                "overageUsage": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "The number of hours used beyond the billing plan's included usage, but not exceeding the billing plan's maximum cost."
+                },
+                "waivedUsage": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "The number of hours used beyond the billing plan's maximum cost.  These usage hours are not billed."
+                },
+                "totalUsage": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "The total usage hours by the user."
+                }
+            },
+            "description": "The collection usage billing summary."
+        },
+        "CollectionUsageSummary": {
             "properties": {
                 "properties": {
-                    "$ref": "#/definitions/CollectionUsageSummary",
+                    "$ref": "#/definitions/CollectionUsageSummaryProperties",
                     "description": "Collection usage summary information."
                 },
                 "etag": {
                     "type": "string",
                     "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
                 }
             },
             "allOf": [
@@ -1716,14 +1743,14 @@
                 "usages": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/CollectionUsageSummary"
+                        "$ref": "#/definitions/CollectionUsageSummaryListItemProperties"
                     },
                     "description": "A list of usage summary details"
                 }
             },
             "description": "A list of usage summary details"
         },
-        "CollectionUsageSummaryListWrapper": {
+        "CollectionUsageSummaryListResult": {
             "properties": {
                 "properties": {
                     "$ref": "#/definitions/CollectionUsageSummaryList",
@@ -1929,7 +1956,7 @@
                 },
                 "nextLink": {
                     "type": "string",
-                    "description":  "URL to use for request paging."
+                    "description": "URL to use for request paging."
                 }
             },
             "description": "A list of operation details"
@@ -2159,7 +2186,7 @@
             },
             "description": "The list of principals and their consent statuses."
         },
-        "Session": {
+        "SessionProperties": {
             "properties": {
                 "logonTimeUtc": {
                     "type": "string",
@@ -2184,31 +2211,40 @@
             },
             "description": "The details of a session."
         },
-        "SessionList": {
+        "SessionListItemProperties": {
             "properties": {
-                "sessions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Session"
-                    },
-                    "description": "A list of sessions"
+                "logonTimeUtc": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time the session started"
+                },
+                "userUpn": {
+                    "type": "string",
+                    "description": "The Upn of the currently active user"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "The session state. Possible values are 'Active', 'Disconnected', 'NoSession', 'Unknown'",
+                    "enum": [
+                        "Active",
+                        "Disconnected",
+                        "NoSession",
+                        "Unknown"
+                    ],
+                    "x-ms-enum": "SessionState"
                 }
             },
-            "description": "The response for the get session list operation."
+            "description": "The details of a session."
         },
-        "SessionWrapper": {
+        "Session": {
             "properties": {
                 "properties": {
-                    "$ref": "#/definitions/Session",
+                    "$ref": "#/definitions/SessionProperties",
                     "description": "A RemoteApp session"
                 },
                 "etag": {
                     "type": "string",
                     "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
                 }
             },
             "allOf": [
@@ -2218,19 +2254,27 @@
             ],
             "description": "The wrapper for the session object"
         },
-        "SessionListWrapper": {
+        "SessionList": {
+            "properties": {
+                "sessions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SessionListItemProperties"
+                    },
+                    "description": "A list of sessions"
+                }
+            },
+            "description": "The response for the get session list operation."
+        },
+        "SessionListResult": {
             "properties": {
                 "properties": {
                     "$ref": "#/definitions/SessionList",
                     "description": "A list of RemoteApp sessions"
                 },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
                 "nextLink": {
                     "type": "string",
-                    "description": "The URL for requesting next page of resources."
+                    "description": "Gets the URL to get the next set of results."
                 }
             },
             "allOf": [
@@ -2238,7 +2282,7 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "Resource wrapper for the SessionList object"
+            "description": "Response for the session list operation."
         },
         "SessionSendMessageCommandParameter": {
             "properties": {
@@ -2319,6 +2363,24 @@
                     "type": "integer",
                     "format": "int64",
                     "description": "The image size in bytes"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "The status of the template image",
+                    "enum": [
+                        "UploadPending",
+                        "UploadInProgress",
+                        "UploadComplete",
+                        "UploadFailed",
+                        "ImportInProgress",
+                        "ImportFailed",
+                        "ImportComplete",
+                        "ValidationFailed",
+                        "Ready",
+                        "Corrupted",
+                        "Deleting"
+                    ],
+                    "x-ms-enum":  "TemplateImageStatus"
                 },
                 "regionList": {
                     "type": "array",
