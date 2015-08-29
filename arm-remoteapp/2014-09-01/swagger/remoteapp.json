@@ -985,7 +985,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageDetails": {
-            "post": {
+            "get": {
                 "tags": [
                     "Collection"
                 ],
@@ -1044,7 +1044,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
-            "post": {
+            "get": {
                 "tags": [
                     "Collection"
                 ],
@@ -1106,7 +1106,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
-            "post": {
+            "get": {
                 "tags": [
                     "Collection"
                 ],
