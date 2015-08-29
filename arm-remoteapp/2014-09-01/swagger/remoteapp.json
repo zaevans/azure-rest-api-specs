@@ -201,10 +201,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Collection"
-                            }
+                            "$ref": "#/definitions/CollectionListResult"
                         }
                     },
                     "202": {
@@ -303,10 +300,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Collection"
-                            }
+                            "$ref": "#/definitions/CollectionListResult"
                         }
                     },
                     "202": {
@@ -1002,6 +996,15 @@
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
+                        "name": "billingDate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BillingDate"
+                        },
+                        "description": "The requested month and year for collection usage information"
+                    },
+                    {
                         "$ref": "#/parameters/apiVersion"
                     },
                     {
@@ -1036,7 +1039,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
-            "get": {
+            "post": {
                 "tags": [
                     "Collection"
                 ],
@@ -1045,6 +1048,15 @@
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "name": "billingDate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BillingDate"
+                        },
+                        "description": "The requested month and year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1084,7 +1096,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
-            "get": {
+            "post": {
                 "tags": [
                     "Collection"
                 ],
@@ -1093,6 +1105,15 @@
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "name": "billingDate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BillingDate"
+                        },
+                        "description": "The requested month and year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1449,6 +1470,19 @@
             ],
             "description": "The response for the get billing plans operation."
         },
+        "BillingDate": {
+            "properties": {
+                "month": {
+                    "type": "string",
+                    "description": "The month of the collection usage information"
+                },
+                "year": {
+                    "type": "string",
+                    "description":  "The year of the collection usage information"
+                }
+            },
+            "description": "Date information for collection usage summary and details"
+        },
         "Location": {
             "properties": {
                 "locationName": {
@@ -1660,10 +1694,6 @@
                 "resourceGroupName": {
                     "type": "string",
                     "description": "The name of the resource group the collection is in"
-                },
-                "eTag": {
-                    "type": "string",
-                    "description": "A GUID for the response"
                 }
             },
             "description": "The details for creating a collection."
@@ -1928,6 +1958,22 @@
                 }
             ],
             "description": "The response for the get collection operation."
+        },
+        "CollectionListResult": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Collection"
+                    },
+                    "description": "A list of collection details"
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "URL to use for request paging."
+                }
+            },
+            "description": "A list of collection details"
         },
         "OperationDisplayInfo": {
             "properties": {
@@ -2408,7 +2454,7 @@
                         "Corrupted",
                         "Deleting"
                     ],
-                    "x-ms-enum":  "TemplateImageStatus"
+                    "x-ms-enum": "TemplateImageStatus"
                 },
                 "regionList": {
                     "type": "array",
