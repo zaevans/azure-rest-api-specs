@@ -1478,7 +1478,7 @@
                 },
                 "year": {
                     "type": "string",
-                    "description":  "The year of the collection usage information"
+                    "description": "The year of the collection usage information"
                 }
             },
             "description": "Date information for collection usage summary and details"
@@ -1851,9 +1851,9 @@
                     "type": "string",
                     "description": "The description of the collection."
                 },
-                "goldImageName": {
+                "templateImageName": {
                     "type": "string",
-                    "description": "The name of the gold image associated with this collection."
+                    "description": "The name of the template image associated with this collection."
                 },
                 "status": {
                     "type": "string",
@@ -1907,6 +1907,16 @@
                     "type": "integer",
                     "format": "int32",
                     "description": "The end-user session limit warning threshold.  Reaching or crossing this threshold will cause a capacity warning message to be shown in the management portal."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the collection",
+                    "enum": [
+                        "Hybrid",
+                        "CloudOnly",
+                        "HybridWithoutDomain"
+                    ],
+                    "x-ms-enum": "RemoteAppCollectionType"
                 },
                 "officeType": {
                     "type": "string",
