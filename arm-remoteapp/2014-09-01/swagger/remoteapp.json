@@ -1871,7 +1871,7 @@
                     "$ref": "#/definitions/ActiveDirectoryConfig",
                     "description": "The domain join details for this collection."
                 },
-                "planName": {
+                "billingPlanName": {
                     "type": "string",
                     "description": "The plan name associated with this collection."
                 },
