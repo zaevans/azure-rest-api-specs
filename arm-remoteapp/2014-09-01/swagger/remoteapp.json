@@ -996,13 +996,18 @@
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "billingDate",
-                        "in": "body",
+                        "name": "usageMonth",
+                        "in": "query",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/BillingDate"
-                        },
-                        "description": "The requested month and year for collection usage information"
+                        "type": "string",
+                        "description": "The requested month for collection usage information"
+                    },
+                    {
+                        "name": "usageYear",
+                        "in": "query",
+                        "required": true,
+                        "type": "string",
+                        "description": "The requested year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1050,13 +1055,18 @@
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "billingDate",
-                        "in": "body",
+                        "name": "usageMonth",
+                        "in": "query",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/BillingDate"
-                        },
-                        "description": "The requested month and year for collection usage information"
+                        "type": "string",
+                        "description": "The requested month for collection usage information"
+                    },
+                    {
+                        "name": "usageYear",
+                        "in": "query",
+                        "required": true,
+                        "type": "string",
+                        "description": "The requested year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1107,13 +1117,18 @@
                         "$ref": "#/parameters/armNamespace"
                     },
                     {
-                        "name": "billingDate",
-                        "in": "body",
+                        "name": "usageMonth",
+                        "in": "query",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/BillingDate"
-                        },
-                        "description": "The requested month and year for collection usage information"
+                        "type": "string",
+                        "description": "The requested month for collection usage information"
+                    },
+                    {
+                        "name": "usageYear",
+                        "in": "query",
+                        "required": true,
+                        "type": "string",
+                        "description": "The requested year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1469,19 +1484,6 @@
                 }
             ],
             "description": "The response for the get billing plans operation."
-        },
-        "BillingDate": {
-            "properties": {
-                "month": {
-                    "type": "string",
-                    "description": "The month of the collection usage information"
-                },
-                "year": {
-                    "type": "string",
-                    "description": "The year of the collection usage information"
-                }
-            },
-            "description": "Date information for collection usage summary and details"
         },
         "Location": {
             "properties": {
