@@ -869,7 +869,7 @@
                     },
                     "200": {
                         "description": "",
-                        "schema": {
+                        "schema": { 
                             "$ref": "#/definitions/StartMenuApplicationListResult"
                         }
                     }
