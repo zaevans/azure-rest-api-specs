@@ -47,7 +47,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/account": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}": {
             "get": {
                 "tags": [
                     "Account"
@@ -69,16 +69,47 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/AccountDetailsWrapper"
+                            "$ref": "#/definitions/AccountDetailsWrapperList"
                         }
                     },
                     "202": {
                         "description": ""
                     }
                 }
-            },
+            }
+        },
 
-            "put": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/activateBilling": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "operationId": "Account_ActivateAccountBilling",
+                "description": "Activates billing for the account",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/accounts/{subscriptionId}/update": {
+            "post": {
                 "tags": [
                     "Account"
                 ],
@@ -111,69 +142,8 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/AccountDetailsWrapper"
+                            "$ref": "#/definitions/AccountDetailsWrapperList"
                         }
-                    }
-                }
-            }
-        },
-
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/billing": {
-            "post": {
-                "tags": [
-                    "Account"
-                ],
-                "operationId": "Account_ActivateAccountBilling",
-                "description": "Activates billing for the account",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/billingPlans": {
-            "get": {
-                "tags": [
-                    "Account"
-                ],
-                "operationId": "Account_Plans",
-                "description": "Gets the available billing plans for the account.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/BillingPlanPropertiesWrapper"
-                        }
-                    },
-                    "202": {
-                        "description": ""
                     }
                 }
             }
@@ -206,38 +176,6 @@
                     },
                     "202": {
                         "description": ""
-                    }
-                }
-            }
-        },
-
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations": {
-            "get": {
-                "tags": [
-                    "Account"
-                ],
-                "operationId": "Account_Locations",
-                "description": "Gets the supported locations to create collections.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": ""
-                    },
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/LocationPropertiesWrapper"
-                        }
                     }
                 }
             }
@@ -317,6 +255,38 @@
                     "description": "The name of the resource group"
                 }
             ]
+        },
+
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/collections": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_ListCollections",
+                "description": "Gets the list of collections details in the subscription.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CollectionListResult"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            }
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}": {
@@ -460,10 +430,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PublishedApplicationDetails"
-                            }
+                            "$ref": "#/definitions/PublishedApplicationDetailsListResult"
                         }
                     }
                 }
@@ -632,7 +599,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/SessionListResult"
+                            "$ref": "#/definitions/SessionList"
                         }
                     },
                     "202": {
@@ -903,14 +870,12 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StartMenuApplication"
-                            }
+                            "$ref": "#/definitions/StartMenuApplicationListResult"
                         }
                     }
                 }
             },
+
             "parameters": [
                 {
                     "name": "collectionName",
@@ -985,7 +950,7 @@
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageDetails": {
-            "get": {
+            "post": {
                 "tags": [
                     "Collection"
                 ],
@@ -994,20 +959,6 @@
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "name": "usageMonth",
-                        "in": "query",
-                        "required": true,
-                        "type": "string",
-                        "description": "The requested month for collection usage information"
-                    },
-                    {
-                        "name": "usageYear",
-                        "in": "query",
-                        "required": true,
-                        "type": "string",
-                        "description": "The requested year for collection usage information"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1039,11 +990,20 @@
                     "required": true,
                     "type": "string",
                     "description": "The name of the resource group"
+                },
+                {
+                    "name": "date",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/BillingDate"
+                    },
+                    "description": "The year and month to get billing for"
                 }
             ]
         },
 
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummaries": {
             "get": {
                 "tags": [
                     "Collection"
@@ -1079,7 +1039,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/CollectionUsageSummaryListResult"
+                            "$ref": "#/definitions/CollectionUsageSummaryList"
                         }
                     },
                     "202": {
@@ -1196,7 +1156,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/SecurityPrincipalInfoListResult"
+                            "$ref": "#/definitions/SecurityPrincipalList"
                         }
                     },
                     "202": {
@@ -1402,10 +1362,39 @@
             },
             "description": "The details of an account."
         },
+        "AccountDetailsAll": {
+            "properties": {
+                "accountInfo": {
+                    "$ref": "#/definitions/AccountDetails",
+                    "description": "Account properties"
+                },
+                "billingPlans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillingPlan"
+                    },
+                    "description": "Available billing plans."
+                },
+                "locationList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    },
+                    "description": "List of locations for creating a collection."
+                },
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "description": "A wrapper for account details to be used as a parameter and a response."
+        },
         "AccountDetailsWrapper": {
             "properties": {
                 "properties": {
-                    "$ref": "#/definitions/AccountDetails",
+                    "$ref": "#/definitions/AccountDetailsAll",
                     "description": "Account properties"
                 },
                 "etag": {
@@ -1422,7 +1411,32 @@
                     "$ref": "Resource"
                 }
             ],
-            "description": "A wrapper for account details to be used as a parameter and a response."
+            "description": "A wrapper for account details to be used as a parameter"
+        },
+        "AccountDetailsWrapperList": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AccountDetailsWrapper"
+                    },
+                    "description": "Account properties"
+                }
+            },
+            "description": "A wrapper for account details to be used as a response."
+        },
+        "BillingDate": {
+            "properties": {
+                "month": {
+                    "type": "string",
+                    "description": "The billing month"
+                },
+                "year": {
+                    "type": "string",
+                    "description": "The billing year"
+                }
+            },
+            "description": "The input to get usage details."
         },
         "BillingPlan": {
             "properties": {
@@ -1451,40 +1465,6 @@
             },
             "description": "Contains details of a billing plan."
         },
-        "BillingPlanWrapper": {
-            "properties": {
-                "plans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/BillingPlan"
-                    },
-                    "description": "Available billing plans"
-                }
-            },
-            "description": "The response for the get billing plans operation."
-        },
-        "BillingPlanPropertiesWrapper": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/BillingPlanWrapper",
-                    "description": "Available billing plans"
-                },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "The response for the get billing plans operation."
-        },
         "Location": {
             "properties": {
                 "locationName": {
@@ -1497,40 +1477,6 @@
                 }
             },
             "description": "The location a resource can be in."
-        },
-        "LocationWrapper": {
-            "properties": {
-                "locations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Location"
-                    },
-                    "description": "Available Locations"
-                }
-            },
-            "description": "The response for the get locations operation."
-        },
-        "LocationPropertiesWrapper": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/LocationWrapper",
-                    "description": "Available Locations"
-                },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "The response for the get locations operation."
         },
         "ActiveDirectoryConfig": {
             "properties": {
@@ -1800,37 +1746,15 @@
         },
         "CollectionUsageSummaryList": {
             "properties": {
-                "usages": {
+                "value": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/CollectionUsageSummaryListItemProperties"
+                        "$ref": "#/definitions/CollectionUsageSummary"
                     },
                     "description": "A list of usage summary details"
                 }
             },
             "description": "A list of usage summary details"
-        },
-        "CollectionUsageSummaryListResult": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/CollectionUsageSummaryList",
-                    "description": "List of usage summary details"
-                },
-                "etag": {
-                    "type": "string",
-                    "description": "The etag of the resource."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL for requesting next page of resources."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "Details of collection usage summary list operation."
         },
         "CollectionProperties": {
             "properties": {
@@ -2069,6 +1993,18 @@
             ],
             "description": "Publishing details of remote application."
         },
+        "PublishedApplicationDetailsListResult": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PublishedApplicationDetails"
+                    },
+                    "description": "PublishedApplication properties."
+                }
+            },
+            "description": "Publishing details of remote application."
+        },
         "StartMenuApplicationProperties": {
             "properties": {
                 "commandLineArguments": {
@@ -2121,6 +2057,18 @@
                     "$ref": "Resource"
                 }
             ],
+            "description": "Definition containing details of Start Menu applications."
+        },
+        "StartMenuApplicationListResult": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/StartMenuApplication"
+                    },
+                    "description": "StartMenuApplication properties."
+                }
+            },
             "description": "Definition containing details of Start Menu applications."
         },
         "PublishingDetails": {
@@ -2203,10 +2151,10 @@
         },
         "SecurityPrincipalList": {
             "properties": {
-                "SecurityPrincipals": {
+                "value": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SecurityPrincipal"
+                        "$ref": "#/definitions/SecurityPrincipalInfo"
                     }
                 }
             },
@@ -2256,48 +2204,7 @@
             ],
             "description": "Contains details about the security principal and that principal's consent status for this collection."
         },
-        "SecurityPrincipalInfoListResult": {
-            "properties": {
-                "userConsentStatuses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/SecurityPrincipalInfo"
-                    },
-                    "description": "The list of users and their consent status for this collection."
-                },
-                "Reserved": {
-                    "type": "string",
-                    "description": "Pass in an empty string the first tinme this call is made. Afterwards pass in the continuation token returned by the previous call. The stopping condition is when the previous token is null."
-                }
-            },
-            "description": "The list of principals and their consent statuses."
-        },
         "SessionProperties": {
-            "properties": {
-                "logonTimeUtc": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The UTC time the session started"
-                },
-                "userUpn": {
-                    "type": "string",
-                    "description": "The Upn of the currently active user"
-                },
-                "state": {
-                    "type": "string",
-                    "description": "The session state. Possible values are 'Active', 'Disconnected', 'NoSession', 'Unknown'",
-                    "enum": [
-                        "Active",
-                        "Disconnected",
-                        "NoSession",
-                        "Unknown"
-                    ],
-                    "x-ms-enum": "SessionState"
-                }
-            },
-            "description": "The details of a session."
-        },
-        "SessionListItemProperties": {
             "properties": {
                 "logonTimeUtc": {
                     "type": "string",
@@ -2342,33 +2249,15 @@
         },
         "SessionList": {
             "properties": {
-                "sessions": {
+                "value": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SessionListItemProperties"
+                        "$ref": "#/definitions/Session"
                     },
                     "description": "A list of sessions"
                 }
             },
             "description": "The response for the get session list operation."
-        },
-        "SessionListResult": {
-            "properties": {
-                "properties": {
-                    "$ref": "#/definitions/SessionList",
-                    "description": "A list of RemoteApp sessions"
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "Gets the URL to get the next set of results."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "Resource"
-                }
-            ],
-            "description": "Response for the session list operation."
         },
         "SessionSendMessageCommandParameter": {
             "properties": {
