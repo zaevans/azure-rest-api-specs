@@ -1065,7 +1065,7 @@
             ]
         },
 
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummaries/{userUpn}": {
             "get": {
                 "tags": [
                     "Collection"
