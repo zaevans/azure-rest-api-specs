@@ -1355,9 +1355,9 @@
                     "type": "string",
                     "description": "Admin-defined URL to the privacy statement"
                 },
-                "region": {
+                "location": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 }
             },
             "description": "The details of an account."
@@ -1606,9 +1606,9 @@
                     "format": "int32",
                     "description": "The amount of time to wait, in minutes, before forcing logoff."
                 },
-                "region": {
+                "location": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 },
                 "publishedApplications": {
                     "$ref": "#/definitions/ApplicationDetailsList",
@@ -1863,10 +1863,6 @@
                 "subnetName": {
                     "type": "string",
                     "description": "The subnet name of the customer created Azure VNet."
-                },
-                "region": {
-                    "type": "string",
-                    "description":  "The location of the collection"
                 }
             },
             "description": "The collection details."
