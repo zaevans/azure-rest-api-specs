@@ -1555,7 +1555,7 @@
         },
         "CollectionCreationDetails": {
             "properties": {
-                "name": {
+                "collectionName": {
                     "type": "string",
                     "description": "The collection's name"
                 },
@@ -1606,7 +1606,7 @@
                     "format": "int32",
                     "description": "The amount of time to wait, in minutes, before forcing logoff."
                 },
-                "location": {
+                "collectionLocation": {
                     "type": "string",
                     "description": "The home location for the account"
                 },
@@ -1828,7 +1828,7 @@
                     "format": "int32",
                     "description": "The end-user session limit warning threshold.  Reaching or crossing this threshold will cause a capacity warning message to be shown in the management portal."
                 },
-                "type": {
+                "collectionType": {
                     "type": "string",
                     "description": "The type of the collection",
                     "enum": [
