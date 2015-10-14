@@ -869,7 +869,7 @@
                     },
                     "200": {
                         "description": "",
-                        "schema": { 
+                        "schema": {
                             "$ref": "#/definitions/StartMenuApplicationListResult"
                         }
                     }
@@ -1357,7 +1357,7 @@
                 },
                 "location": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 }
             },
             "description": "The details of an account."
@@ -1495,9 +1495,9 @@
         },
         "ApplicationDetails": {
             "properties": {
-                "name": {
+                "displayName": {
                     "type": "string",
-                    "description": "The application name."
+                    "description": "The application's display name."
                 },
                 "virtualPath": {
                     "type": "string",
@@ -1555,7 +1555,7 @@
         },
         "CollectionCreationDetails": {
             "properties": {
-                "name": {
+                "collectionName": {
                     "type": "string",
                     "description": "The collection's name"
                 },
@@ -1606,9 +1606,9 @@
                     "format": "int32",
                     "description": "The amount of time to wait, in minutes, before forcing logoff."
                 },
-                "region": {
+                "collectionLocation": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 },
                 "publishedApplications": {
                     "$ref": "#/definitions/ApplicationDetailsList",
@@ -1763,7 +1763,7 @@
                     ],
                     "x-ms-enum": "ProvisioningState"
                 },
-                "name": {
+                "collectionName": {
                     "type": "string",
                     "description": "The collection name."
                 },
@@ -1828,7 +1828,7 @@
                     "format": "int32",
                     "description": "The end-user session limit warning threshold.  Reaching or crossing this threshold will cause a capacity warning message to be shown in the management portal."
                 },
-                "type": {
+                "collectionType": {
                     "type": "string",
                     "description": "The type of the collection",
                     "enum": [
@@ -2016,11 +2016,11 @@
                     "type": "string",
                     "description": "The default URI to the application icon png file."
                 },
-                "name": {
+                "startMenuApplicationName": {
                     "type": "string",
                     "description": "The application name."
                 },
-                "id": {
+                "startMenuApplicationId": {
                     "type": "string",
                     "description": "The start menu application id."
                 },
