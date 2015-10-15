@@ -975,8 +975,12 @@
                         "schema": {
                             "$ref": "#/definitions/UsageDetailsInfo"
                         }
+                    },
+                    "202": {
+                        "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
@@ -1135,7 +1139,7 @@
                 }
             ]
         },
-        
+
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/metrics": {
             "get": {
                 "tags": [
