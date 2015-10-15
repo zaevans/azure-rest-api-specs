@@ -206,9 +206,11 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/TemplateImage"
+                            "value": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/TemplateImage"
+                                }
                             }
                         }
                     }
@@ -1133,6 +1135,68 @@
                 }
             ]
         },
+        
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/metrics": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetMetrics",
+                "description": "Gets the list of collection metric values for specified time window.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "name": "startTimeUtc",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "Utc start time for the time window formatted as 'yyyyMMddTHHmmss'"
+                    },
+                    {
+                        "name": "endTimeUtc",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "Utc end time for the time window formatted as 'yyyyMMddTHHmmss'"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CollectionMetricsDetailsWrapper"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/users": {
             "get": {
@@ -1552,6 +1616,78 @@
                 }
             },
             "description": "List of application details used to create or update a collection."
+        },
+        "CollectionMetricsDetailsWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/CollectionMetricsDetails",
+                    "description": "Collection usage summary information."
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "Details of collection metrics."
+        },
+        "CollectionMetricsDetails": {
+            "properties": {
+                "overageHours": {
+                    "$ref": "#/definitions/CollectionMetrics",
+                    "description": "Number of overage hours incurred"
+                },
+                "billedUsers": {
+                    "$ref": "#/definitions/CollectionMetrics",
+                    "description": "Number of users billed"
+                },
+            }
+        },
+        "CollectionMetrics": {
+            "properties": {
+                "aggregationMinutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of minutes over which the metric is aggregated"
+                },
+                "values": {
+                    "$ref": "#/definitions/CollectionMetric",
+                    "description": "One sample value of metric"
+                }
+            }
+        },
+        "CollectionMetric": {
+            "properties": {
+                "timeCreated": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Time when the metric value sample was taken"
+                },
+                "total": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Total number metric values over aggregation period"
+                },
+                "minimum": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Minimum value of the metric over aggregation period"
+                },
+                "maximum": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Maximum value of the metric over aggregation period"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of samples taken over aggregation period"
+                }
+            }
         },
         "CollectionCreationDetails": {
             "properties": {
