@@ -1152,14 +1152,14 @@
                         "in": "query",
                         "required": false,
                         "type": "string",
-                        "description": "Utc start time for the time window formatted as 'yyyyMMddTHHmmss'"
+                        "description": "UTC start time for the time window formatted as 'yyyyMMdd'"
                     },
                     {
                         "name": "endTimeUtc",
                         "in": "query",
                         "required": false,
                         "type": "string",
-                        "description": "Utc end time for the time window formatted as 'yyyyMMddTHHmmss'"
+                        "description": "UTC end time for the time window formatted as 'yyyyMMdd'"
                     },
                     {
                         "$ref": "#/parameters/apiVersion"
@@ -1670,22 +1670,22 @@
                 "total": {
                     "type": "number",
                     "format": "double",
-                    "description": "Total number metric values over aggregation period"
+                    "description": "Total number of metric values over the aggregation period"
                 },
                 "minimum": {
                     "type": "number",
                     "format": "double",
-                    "description": "Minimum value of the metric over aggregation period"
+                    "description": "Minimum value of the metric over the aggregation period"
                 },
                 "maximum": {
                     "type": "number",
                     "format": "double",
-                    "description": "Maximum value of the metric over aggregation period"
+                    "description": "Maximum value of the metric over the aggregation period"
                 },
                 "count": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "Number of samples taken over aggregation period"
+                    "description": "Number of samples taken over the aggregation period"
                 }
             }
         },
