@@ -1687,8 +1687,11 @@
                     "description": "Number of minutes over which the metric is aggregated"
                 },
                 "values": {
-                    "$ref": "#/definitions/CollectionMetric",
-                    "description": "One sample value of metric"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CollectionMetric"
+                    },
+                    "description": "Values of metric"
                 }
             }
         },
