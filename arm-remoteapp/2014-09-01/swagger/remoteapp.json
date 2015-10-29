@@ -206,9 +206,11 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/TemplateImage"
+                            "value": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/TemplateImage"
+                                }
                             }
                         }
                     }
@@ -869,7 +871,7 @@
                     },
                     "200": {
                         "description": "",
-                        "schema": { 
+                        "schema": {
                             "$ref": "#/definitions/StartMenuApplicationListResult"
                         }
                     }
@@ -973,8 +975,12 @@
                         "schema": {
                             "$ref": "#/definitions/UsageDetailsInfo"
                         }
+                    },
+                    "202": {
+                        "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
@@ -1065,7 +1071,7 @@
             ]
         },
 
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummary/{userUpn}": {
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/usageSummaries/{userUpn}": {
             "get": {
                 "tags": [
                     "Collection"
@@ -1123,6 +1129,68 @@
                     "required": true,
                     "type": "string",
                     "description": "The UPN of the user"
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+        },
+
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/metrics": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetMetrics",
+                "description": "Gets the list of collection metric values for specified time window.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "name": "startTimeUtc",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "UTC start time for the time window formatted as 'yyyyMMdd'"
+                    },
+                    {
+                        "name": "endTimeUtc",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "UTC end time for the time window formatted as 'yyyyMMdd'"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CollectionMetricsDetailsWrapper"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
                 },
                 {
                     "name": "resourceGroupName",
@@ -1357,7 +1425,7 @@
                 },
                 "location": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 }
             },
             "description": "The details of an account."
@@ -1501,9 +1569,9 @@
         },
         "ApplicationDetails": {
             "properties": {
-                "name": {
+                "displayName": {
                     "type": "string",
-                    "description": "The application name."
+                    "description": "The application's display name."
                 },
                 "virtualPath": {
                     "type": "string",
@@ -1559,9 +1627,81 @@
             },
             "description": "List of application details used to create or update a collection."
         },
+        "CollectionMetricsDetailsWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/CollectionMetricsDetails",
+                    "description": "Collection usage summary information."
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "Details of collection metrics."
+        },
+        "CollectionMetricsDetails": {
+            "properties": {
+                "overageHours": {
+                    "$ref": "#/definitions/CollectionMetrics",
+                    "description": "Number of overage hours incurred"
+                },
+                "billedUsers": {
+                    "$ref": "#/definitions/CollectionMetrics",
+                    "description": "Number of users billed"
+                },
+            }
+        },
+        "CollectionMetrics": {
+            "properties": {
+                "aggregationMinutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of minutes over which the metric is aggregated"
+                },
+                "values": {
+                    "$ref": "#/definitions/CollectionMetric",
+                    "description": "One sample value of metric"
+                }
+            }
+        },
+        "CollectionMetric": {
+            "properties": {
+                "timeCreated": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Time when the metric value sample was taken"
+                },
+                "total": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Total number of metric values over the aggregation period"
+                },
+                "minimum": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Minimum value of the metric over the aggregation period"
+                },
+                "maximum": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Maximum value of the metric over the aggregation period"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of samples taken over the aggregation period"
+                }
+            }
+        },
         "CollectionCreationDetails": {
             "properties": {
-                "name": {
+                "collectionName": {
                     "type": "string",
                     "description": "The collection's name"
                 },
@@ -1612,9 +1752,9 @@
                     "format": "int32",
                     "description": "The amount of time to wait, in minutes, before forcing logoff."
                 },
-                "region": {
+                "collectionLocation": {
                     "type": "string",
-                    "description": "The home region for the account"
+                    "description": "The home location for the account"
                 },
                 "publishedApplications": {
                     "$ref": "#/definitions/ApplicationDetailsList",
@@ -1769,7 +1909,7 @@
                     ],
                     "x-ms-enum": "ProvisioningState"
                 },
-                "name": {
+                "collectionName": {
                     "type": "string",
                     "description": "The collection name."
                 },
@@ -1834,7 +1974,7 @@
                     "format": "int32",
                     "description": "The end-user session limit warning threshold.  Reaching or crossing this threshold will cause a capacity warning message to be shown in the management portal."
                 },
-                "type": {
+                "collectionType": {
                     "type": "string",
                     "description": "The type of the collection",
                     "enum": [
@@ -2022,11 +2162,11 @@
                     "type": "string",
                     "description": "The default URI to the application icon png file."
                 },
-                "name": {
+                "startMenuApplicationName": {
                     "type": "string",
                     "description": "The application name."
                 },
-                "id": {
+                "startMenuApplicationId": {
                     "type": "string",
                     "description": "The start menu application id."
                 },

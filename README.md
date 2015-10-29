@@ -1,3 +1,5 @@
+[![Repo Status](http://img.shields.io/travis/Azure/azure-rest-api-specs/master.svg?style=flat-square&label=repo-status)](https://travis-ci.org/Azure/azure-rest-api-specs)
+
 # Azure REST API Specifications
 
 This repository is the canonical source for REST API specifications for Microsoft Azure.
@@ -8,7 +10,7 @@ The structure of the directory should strictly follow these rules:
 - The top level folder must be the service name
 - The second level must be the API versions
 - The third level must be the format of the specification
-- The forth level must be the specifications
+- The fourth level must be the specifications
 
 The structure should appear like so:
 ```bash

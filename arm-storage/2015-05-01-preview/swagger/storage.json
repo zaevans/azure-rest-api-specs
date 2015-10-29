@@ -450,7 +450,7 @@
       },
       "allOf": [
         {
-          "$ref": "Resource"
+          "$ref": "#/definitions/Resource"
         }
       ],
       "description": "The parameters to provide for the account."
@@ -492,7 +492,7 @@
           "description": "Gets the status of the storage account at the time the operation was called.",
           "enum": [
             "Creating",
-            "ResolvingDNS",
+            "ResolvingDns",
             "Succeeded"
           ],
           "x-ms-enum": "ProvisioningState"
@@ -567,7 +567,7 @@
       },
       "allOf": [
         {
-          "$ref": "Resource"
+          "$ref": "#/definitions/Resource"
         }
       ],
       "description": "The storage account."
@@ -625,7 +625,7 @@
       },
       "allOf": [
         {
-          "$ref": "Resource"
+          "$ref": "#/definitions/Resource"
         }
       ],
       "description": "The parameters to update on the account."
