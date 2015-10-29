@@ -1529,9 +1529,31 @@
                     "type": "integer",
                     "format": "int32",
                     "description": "Minimum number of user to bill."
+                },
+                "billingMeters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillingMeterInformation"
+                    }
                 }
             },
             "description": "Contains details of a billing plan."
+        },
+        "BillingMeterInformation": {
+            "properties": {
+                "geo": {
+                    "type": "string",
+                    "description": "geo for the billing meter"
+                },
+                "flatMeterId": {
+                    "type": "string",
+                    "description": "The MINT ID for the flat rate"
+                },
+                "overageMeterId": {
+                    "type": "string",
+                    "description":  "The MINT ID for the overage rate"
+                }
+            }
         },
         "Location": {
             "properties": {
@@ -1654,7 +1676,7 @@
                 "billedUsers": {
                     "$ref": "#/definitions/CollectionMetrics",
                     "description": "Number of users billed"
-                },
+                }
             }
         },
         "CollectionMetrics": {
