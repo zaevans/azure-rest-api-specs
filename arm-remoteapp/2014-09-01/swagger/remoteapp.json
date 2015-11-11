@@ -181,7 +181,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/templateImages": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -197,25 +197,135 @@
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
+                    },
+                    {
+                        "name": "location",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Location where the template images are stored"
                     }
                 ],
                 "responses": {
-                    "202": {
-                        "description": ""
-                    },
                     "200": {
                         "description": "",
                         "schema": {
-                            "value": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/definitions/TemplateImage"
-                                }
-                            }
+                            "$ref": "#/definitions/TemplateImageList"
                         }
                     }
                 }
             }
+        },
+
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/templateImages/{templateImageName}": {
+            "get": {
+                "tags": [
+                    "TemplateImages"
+                ],
+                "operationId": "TemplateImage_GetTemplateImage",
+                "description": "Gets a template image.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/TemplateImage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TemplateImages"
+                ],
+                "operationId": "TemplateImage_SetTemplateImage",
+                "description": "Creates or updates a template image.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    },
+                    {
+                        "name": "templateImageDetails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TemplateImageCreateDetails"
+                        },
+                        "description": "Details of the template image to create"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/TemplateImage"
+                        }
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                },
+                "x-ms-long-running-operation": true
+            },
+            "delete": {
+                "tags": [
+                    "TemplateImages"
+                ],
+                "operationId": "TemplateImage_DeleteTemplateImage",
+                "description": "Removes a template image from a subscription",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "202": {
+                        "description": ""
+                    }
+                },
+                "x-ms-long-running-operation": true
+            },
+            "parameters": [
+                {
+                    "name": "location",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "Location of the template image"
+                },
+                {
+                    "name": "templateImageName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the template image"
+                }
+            ]
         },
 
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections": {
@@ -1535,7 +1645,7 @@
                     "items": {
                         "$ref": "#/definitions/BillingMeterInformation"
                     },
-                    "description":  "List of meters for this billing plan"
+                    "description": "List of meters for this billing plan"
                 }
             },
             "description": "Contains details of a billing plan."
@@ -1552,7 +1662,7 @@
                 },
                 "overageMeterId": {
                     "type": "string",
-                    "description":  "The MINT ID for the overage rate"
+                    "description": "The MINT ID for the overage rate"
                 }
             }
         },
@@ -2494,7 +2604,7 @@
             ],
             "description": "Operational results of adding or removing a security principal."
         },
-        "TemplateImage": {
+        "TemplateImageProperties": {
             "properties": {
                 "name": {
                     "type": "string",
@@ -2523,7 +2633,7 @@
                     ],
                     "x-ms-enum": "TemplateImageStatus"
                 },
-                "regionList": {
+                "locationList": {
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -2542,7 +2652,7 @@
                 },
                 "trialOnly": {
                     "type": "boolean",
-                    "description": "A TrialOnly platform template image may be used only during a subscription's RemoteApp trial period. Once billing is activated, a collection using a TrialOnly image will be permanently disabled."
+                    "description": "A TrialOnly platform template image may be used only during a subscription's RemoteApp trial period. Once billing is activated, a collection using a TrialOnly template image will be permanently disabled."
                 },
                 "officeType": {
                     "type": "string",
@@ -2555,13 +2665,65 @@
                     ],
                     "x-ms-enum": "OfficeType"
                 },
+                "numberOfLinkedCollections": {
+                    "type": "number",
+                    "format": "int64",
+                    "description": "The number of collections linked to the template image."
+                },
                 "uploadCompleteTime": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time when the image upload was completed."
+                    "description": "The time when the template image upload was completed."
                 }
             },
             "description": "Details of a template image"
+        },
+        "TemplateImage": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/TemplateImageProperties",
+                    "description": "A template image"
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "The wrapper for the template image object"
+        },
+        "TemplateImageCreateDetails": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The friendly name for the template image"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "The location of the template image"
+                },
+                "sourceImageSasUri": {
+                    "type": "string",
+                    "description": "SAS URI for an OS disk in the VM library"
+                }
+            },
+            "description": "Details needed to upload a template image"
+        },
+        "TemplateImageList": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TemplateImage"
+                    },
+                    "description": "A list of template images"
+                }
+            },
+            "description": "The response for the get template images operation."
         },
         "UsageDetailsInfo": {
             "properties": {
