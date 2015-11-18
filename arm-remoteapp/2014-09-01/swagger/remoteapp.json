@@ -817,7 +817,8 @@
                     "202": {
                         "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
@@ -869,7 +870,8 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
@@ -930,7 +932,8 @@
                     "200": {
                         "description": ""
                     }
-                }
+                },
+                "x-ms-long-running-operation": true
             },
             "parameters": [
                 {
