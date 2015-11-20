@@ -248,8 +248,8 @@
                 "tags": [
                     "TemplateImages"
                 ],
-                "operationId": "TemplateImage_Create",
-                "description": "Creates a template image.",
+                "operationId": "TempateImage_CreateOrUpdate",
+                "description": "Creates or updates a template image.",
                 "parameters": [
                     {
                         "$ref": "#/parameters/armNamespace"
