@@ -278,8 +278,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "The filter to apply on the operation.",
-            "x-ms-skip-url-encoding": true
+            "description": "The filter to apply on the operation."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -298,7 +297,8 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
+        },
+        "x-ms-odata": "#/definitions/RoleAssignment"
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/roleAssignments": {
@@ -321,8 +321,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "The filter to apply on the operation.",
-            "x-ms-skip-url-encoding": true
+            "description": "The filter to apply on the operation."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -341,7 +340,8 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
+        },
+        "x-ms-odata": "#/definitions/RoleAssignment"
       }
     },
     "/{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}": {
@@ -586,8 +586,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "The filter to apply on the operation.",
-            "x-ms-skip-url-encoding": true
+            "description": "The filter to apply on the operation."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -606,7 +605,8 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
+        },
+        "x-ms-odata": "#/definitions/RoleAssignment"
       }
     },
     "/{scope}/providers/Microsoft.Authorization/roleAssignments": {
@@ -630,8 +630,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "The filter to apply on the operation.",
-            "x-ms-skip-url-encoding": true
+            "description": "The filter to apply on the operation."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -650,7 +649,8 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
+        },
+        "x-ms-odata": "#/definitions/RoleAssignment"
       }
     },
     "/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}": {
@@ -811,8 +811,15 @@
           "RoleDefinitions"
         ],
         "operationId": "RoleDefinitions_List",
-        "description": "Get all role definitions.",
+        "description": "Get role definitions.",
         "parameters": [
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The filter to apply on the operation."
+          },
           {
             "$ref": "#/parameters/ApiVersionParameter"
           },
@@ -830,7 +837,8 @@
         },
         "x-ms-pageable": {
           "nextLinkName": null
-        }
+        },
+        "x-ms-odata": "#/definitions/RoleDefinition"
       }
     }
   },
@@ -1135,8 +1143,8 @@
             "$ref": "#/definitions/Operation"
           },
           "description": "Gets or sets the provider operations"
-        }
-      },
+    }
+  },
       "description": "Provider Operations metadata"
     },
     "ProviderOperationsMetadataListResult": {
