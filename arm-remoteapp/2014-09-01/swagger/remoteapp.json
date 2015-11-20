@@ -248,7 +248,7 @@
                 "tags": [
                     "TemplateImages"
                 ],
-                "operationId": "TempateImage_CreateOrUpdate",
+                "operationId": "TemplateImage_CreateOrUpdate",
                 "description": "Creates or updates a template image.",
                 "parameters": [
                     {
