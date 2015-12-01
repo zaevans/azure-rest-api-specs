@@ -181,7 +181,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/templateImages": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -217,7 +217,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/templateImages/{templateImageName}": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images/{templateImageName}": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -1713,7 +1713,7 @@
                     "type": "string",
                     "description": "Path to the application.  The path should reference default operating system environment variables such as %ProgramFiles%, %ProgramFiles(x86)%, %SystemRoot%, etc. where possible.  For example, use '%SystemRoot%\\notepad.exe' rather than 'C:\\Windows\\notepad.exe'."
                 },
-                "alias": {
+                "applicationAlias": {
                     "type": "string",
                     "description": "A short unique name for the application."
                 },
@@ -2041,10 +2041,17 @@
                     "type": "string",
                     "description": "The collection provisioning state.",
                     "enum": [
-                        "Failed",
-                        "Succeeded",
                         "Cancelled",
-                        "InProgress"
+                        "Creating",
+                        "Deprovisioning",
+                        "Disabling",
+                        "Disabled",
+                        "Enabling",
+                        "Failed",
+                        "InProgress",
+                        "Provisioning",
+                        "Succeeded",
+                        "Upgrading"
                     ],
                     "x-ms-enum": "ProvisioningState"
                 },
@@ -2499,6 +2506,7 @@
                     "description": "The session state. Possible values are 'Active', 'Disconnected', 'NoSession', 'Unknown'",
                     "enum": [
                         "Active",
+                        "Connected",
                         "Disconnected",
                         "NoSession",
                         "Unknown"
