@@ -1539,6 +1539,22 @@
                 "location": {
                     "type": "string",
                     "description": "The home location for the account"
+                },
+                "billingState": {
+                    "type": "string",
+                    "description": "The billing state of the account",
+                    "enum": [
+                        "Trial",
+                        "TrialExpired",
+                        "Active",
+                        "Inactive",
+                        "Preview"
+                    ],
+                    "x-ms-enum": "AccountBillingState"
+                },
+                "trialEndTime": {
+                    "type": "string",
+                    "description": "Trial end time for the account when in trial billing state"
                 }
             },
             "description": "The details of an account."
@@ -2155,6 +2171,13 @@
                 "subnetName": {
                     "type": "string",
                     "description": "The subnet name of the customer created Azure VNet."
+                },
+                "healthStatus": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of collection health statuses notifications."
                 }
             },
             "description": "The collection details."
