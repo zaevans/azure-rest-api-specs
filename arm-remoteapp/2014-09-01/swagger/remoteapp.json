@@ -181,7 +181,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -217,7 +217,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images/{templateImageName}": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages/{templateImageName}": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -243,45 +243,6 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "tags": [
-                    "TemplateImages"
-                ],
-                "operationId": "TemplateImage_CreateOrUpdate",
-                "description": "Creates or updates a template image.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    },
-                    {
-                        "name": "templateImageDetails",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/TemplateImageCreateDetails"
-                        },
-                        "description": "Details of the template image to create"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/TemplateImage"
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                },
-                "x-ms-long-running-operation": true
             },
             "delete": {
                 "tags": [
@@ -1539,6 +1500,23 @@
                 "location": {
                     "type": "string",
                     "description": "The home location for the account"
+                },
+                "billingState": {
+                    "type": "string",
+                    "description": "The billing state of the account",
+                    "enum": [
+                        "Trial",
+                        "TrialExpired",
+                        "Active",
+                        "Inactive",
+                        "Preview"
+                    ],
+                    "x-ms-enum": "AccountBillingState"
+                },
+                "trialEndTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Trial end time for the account when in trial billing state"
                 }
             },
             "description": "The details of an account."
@@ -1852,6 +1830,10 @@
                     "type": "string",
                     "description": "The name of the template image for the collection"
                 },
+                "sourceImageSasUri": {
+                    "type": "string",
+                    "description": "SAS URI for an OS image in the VM library"
+                },
                 "vnetName": {
                     "type": "string",
                     "description": "The name of the Vnet for the collection"
@@ -2155,7 +2137,14 @@
                 "subnetName": {
                     "type": "string",
                     "description": "The subnet name of the customer created Azure VNet."
-                }
+                },
+                "healthStatus": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of collection health status messages"
+                 }
             },
             "description": "The collection details."
         },
@@ -2656,7 +2645,7 @@
                     "description": "The type of the template image.",
                     "enum": [
                         "CustomerImage",
-                        "PlatformImage",
+                        "MicrosoftImage",
                         "Unknown"
                     ],
                     "x-ms-enum": "TemplateImageType"
@@ -2677,7 +2666,7 @@
                     "x-ms-enum": "OfficeType"
                 },
                 "numberOfLinkedCollections": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int64",
                     "description": "The number of collections linked to the template image."
                 },
@@ -2706,15 +2695,6 @@
                 }
             ],
             "description": "The wrapper for the template image object"
-        },
-        "TemplateImageCreateDetails": {
-            "properties": {
-                "sourceImageSasUri": {
-                    "type": "string",
-                    "description": "SAS URI for an OS disk in the VM library"
-                }
-            },
-            "description": "Details needed to upload a template image"
         },
         "TemplateImageList": {
             "properties": {
