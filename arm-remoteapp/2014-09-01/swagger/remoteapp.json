@@ -237,33 +237,6 @@
                     }
                 }
             },
-            "delete": {
-                "tags": [
-                    "TemplateImages"
-                ],
-                "operationId": "TemplateImage_DeleteTemplateImage",
-                "description": "Removes a template image from a subscription",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                },
-                "x-ms-long-running-operation": true
-            },
             "parameters": [
                 {
                     "name": "templateImageName",
@@ -1448,7 +1421,7 @@
     "definitions": {
         "AccountDetails": {
             "properties": {
-                "id": {
+                "accountId": {
                     "type": "string",
                     "description": "The account subscriptionId"
                 },
@@ -1483,7 +1456,7 @@
                     "type": "string",
                     "description": "Admin-defined URL to the privacy statement"
                 },
-                "location": {
+                "accountLocation": {
                     "type": "string",
                     "description": "The home location for the account"
                 },
@@ -2395,9 +2368,9 @@
                     ],
                     "x-ms-enum": "PrincipalProviderType"
                 },
-                "name": {
+                "upn": {
                     "type": "string",
-                    "description": "The security principal name."
+                    "description": "The security principal UPN."
                 },
                 "aadObjectId": {
                     "type": "string",
@@ -2592,7 +2565,7 @@
         },
         "TemplateImageProperties": {
             "properties": {
-                "name": {
+                "templateImageName": {
                     "type": "string",
                     "description": "The friendly name for the image"
                 },
@@ -2624,7 +2597,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The list of regions where the image can be used"
+                    "description": "The list of locations where the image can be used"
                 },
                 "templateImageType": {
                     "type": "string",
