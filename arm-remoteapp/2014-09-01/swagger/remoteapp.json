@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "RemoteAppManagementClient",
-        "version": "2015-11-13"
+        "version": "2014-09-01"
     },
     "host": "management.azure.net",
     "schemes": [
@@ -197,13 +197,6 @@
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
-                    },
-                    {
-                        "name": "location",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Location where the template images are stored"
                     }
                 ],
                 "responses": {
@@ -272,13 +265,6 @@
                 "x-ms-long-running-operation": true
             },
             "parameters": [
-                {
-                    "name": "location",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "Location of the template image"
-                },
                 {
                     "name": "templateImageName",
                     "in": "path",
