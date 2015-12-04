@@ -2102,8 +2102,6 @@
                     "items": {
                         "type": "string"
                     },
-
-
                     "description": "List of collection health status messages"
                 },
                 "diagnosticOperations": {
@@ -2120,7 +2118,6 @@
                     },
                     "description": "Details of diagnostics for the collection. Each entry in this list is in the form of Key#Value."
                 }
-
             },
             "description": "The collection details."
         },
@@ -2132,7 +2129,7 @@
                 },
                 "result": {
                     "type": "string",
-                    "description": "Result of diagnostic operation. Result != 0 means Failure."
+                    "description": "Result of diagnostic operation. Zero indicates success; other values indicate errors."
                 }
             },
             "description": "The application security principal details."
