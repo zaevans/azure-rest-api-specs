@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "RemoteAppManagementClient",
-        "version": "2015-11-13"
+        "version": "2014-09-01"
     },
     "host": "management.azure.net",
     "schemes": [
@@ -181,7 +181,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -197,13 +197,6 @@
                     },
                     {
                         "$ref": "#/parameters/subscriptionId"
-                    },
-                    {
-                        "name": "location",
-                        "in": "path",
-                        "required": true,
-                        "type": "string",
-                        "description": "Location where the template images are stored"
                     }
                 ],
                 "responses": {
@@ -217,7 +210,7 @@
             }
         },
 
-        "/subscriptions/{subscriptionId}/providers/{armNamespace}/locations/{location}/images/{templateImageName}": {
+        "/subscriptions/{subscriptionId}/providers/{armNamespace}/templateImages/{templateImageName}": {
             "get": {
                 "tags": [
                     "TemplateImages"
@@ -244,80 +237,7 @@
                     }
                 }
             },
-            "put": {
-                "tags": [
-                    "TemplateImages"
-                ],
-                "operationId": "TemplateImage_CreateOrUpdate",
-                "description": "Creates or updates a template image.",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    },
-                    {
-                        "name": "templateImageDetails",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/TemplateImageCreateDetails"
-                        },
-                        "description": "Details of the template image to create"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/TemplateImage"
-                        }
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                },
-                "x-ms-long-running-operation": true
-            },
-            "delete": {
-                "tags": [
-                    "TemplateImages"
-                ],
-                "operationId": "TemplateImage_DeleteTemplateImage",
-                "description": "Removes a template image from a subscription",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/armNamespace"
-                    },
-                    {
-                        "$ref": "#/parameters/apiVersion"
-                    },
-                    {
-                        "$ref": "#/parameters/subscriptionId"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    },
-                    "202": {
-                        "description": ""
-                    }
-                },
-                "x-ms-long-running-operation": true
-            },
             "parameters": [
-                {
-                    "name": "location",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "Location of the template image"
-                },
                 {
                     "name": "templateImageName",
                     "in": "path",
@@ -1501,7 +1421,7 @@
     "definitions": {
         "AccountDetails": {
             "properties": {
-                "id": {
+                "accountId": {
                     "type": "string",
                     "description": "The account subscriptionId"
                 },
@@ -1536,7 +1456,7 @@
                     "type": "string",
                     "description": "Admin-defined URL to the privacy statement"
                 },
-                "location": {
+                "accountLocation": {
                     "type": "string",
                     "description": "The home location for the account"
                 },
@@ -1554,6 +1474,7 @@
                 },
                 "trialEndTime": {
                     "type": "string",
+                    "format": "date-time",
                     "description": "Trial end time for the account when in trial billing state"
                 }
             },
@@ -1868,6 +1789,10 @@
                     "type": "string",
                     "description": "The name of the template image for the collection"
                 },
+                "sourceImageSasUri": {
+                    "type": "string",
+                    "description": "SAS URI for an OS image in the VM library"
+                },
                 "vnetName": {
                     "type": "string",
                     "description": "The name of the Vnet for the collection"
@@ -2177,8 +2102,9 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "List of collection health statuses notifications."
-                }
+
+                    "description": "List of collection health status messages"
+                 }
             },
             "description": "The collection details."
         },
@@ -2443,9 +2369,9 @@
                     ],
                     "x-ms-enum": "PrincipalProviderType"
                 },
-                "name": {
+                "upn": {
                     "type": "string",
-                    "description": "The security principal name."
+                    "description": "The security principal UPN."
                 },
                 "aadObjectId": {
                     "type": "string",
@@ -2640,7 +2566,7 @@
         },
         "TemplateImageProperties": {
             "properties": {
-                "name": {
+                "templateImageName": {
                     "type": "string",
                     "description": "The friendly name for the image"
                 },
@@ -2672,14 +2598,14 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The list of regions where the image can be used"
+                    "description": "The list of locations where the image can be used"
                 },
                 "templateImageType": {
                     "type": "string",
                     "description": "The type of the template image.",
                     "enum": [
                         "CustomerImage",
-                        "PlatformImage",
+                        "MicrosoftImage",
                         "Unknown"
                     ],
                     "x-ms-enum": "TemplateImageType"
@@ -2700,7 +2626,7 @@
                     "x-ms-enum": "OfficeType"
                 },
                 "numberOfLinkedCollections": {
-                    "type": "number",
+                    "type": "integer",
                     "format": "int64",
                     "description": "The number of collections linked to the template image."
                 },
@@ -2729,15 +2655,6 @@
                 }
             ],
             "description": "The wrapper for the template image object"
-        },
-        "TemplateImageCreateDetails": {
-            "properties": {
-                "sourceImageSasUri": {
-                    "type": "string",
-                    "description": "SAS URI for an OS disk in the VM library"
-                }
-            },
-            "description": "Details needed to upload a template image"
         },
         "TemplateImageList": {
             "properties": {
