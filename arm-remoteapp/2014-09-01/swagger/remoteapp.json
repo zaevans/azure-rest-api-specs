@@ -2103,10 +2103,39 @@
                         "type": "string"
                     },
 
+
                     "description": "List of collection health status messages"
-                 }
+                },
+                "diagnosticOperations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DiagnosticOp"
+                    },
+                    "description": "List of diagnostics operations for the collection."
+                },
+                "diagnosticDetails": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Details of diagnostics for the collection. Each entry in this list is in the form of Key#Value."
+                }
+
             },
             "description": "The collection details."
+        },
+        "DiagnosticOp": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Id of diagnostic operation."
+                },
+                "result": {
+                    "type": "string",
+                    "description": "Result of diagnostic operation. Result != 0 means Failure."
+                }
+            },
+            "description": "The application security principal details."
         },
         "Collection": {
             "properties": {
