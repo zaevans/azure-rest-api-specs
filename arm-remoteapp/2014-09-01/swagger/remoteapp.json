@@ -1443,25 +1443,26 @@
                         }
                     }
                 },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                }
-            ]
-            },			
+                "parameters": [
+                    {
+                        "name": "collectionName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The collection name."
+                    },
+                    {
+                        "name": "resourceGroupName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The name of the resource group"
+                    }
+                ]
+            }
         },
-		"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms/{virtualMachine}": {
+
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms/{virtualMachine}": {
             "get": {
                 "tags": [
                     "Collection"
@@ -1483,37 +1484,12 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/VmDetail"
+                            "$ref": "#/definitions/VmDetails"
                         }
                     }
-                },
-            "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                },
-                {
-                    "name": "virtualMachine",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The virtual machine name"
-                }								
-            ]
-            },			
-        },
-        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms/{virtualMachine}": {
-           "post": {
+                }
+            },
+            "post": {
                 "tags": [
                     "Collection"
                 ],
@@ -1537,42 +1513,40 @@
                             "$ref": "#/definitions/VmCommandDetailsWrapper"
                         },
                         "description": "The LogoffMessage and time to wait before restarting the virtual machine"
-                    },					
+                    }
                 ],
                 "responses": {
-                    "202": {
-                        "description": ""
-                    },
                     "200": {
-                        "description": "",
+                        "description": ""
                     }
-                },
-				"x-ms-long-running-operation": true,
+                }
+            },
             "parameters": [
-                {
-                    "name": "collectionName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The collection name."
-                },
-                {
-                    "name": "resourceGroupName",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The name of the resource group"
-                },
-                {
-                    "name": "virtualMachine",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "description": "The virtual machine name"
-                }				
-            ]				
-            }
-		}	
+                    {
+                        "name": "collectionName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The collection name."
+                    },
+                    {
+                        "name": "resourceGroupName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The name of the resource group"
+                    },
+                    {
+                        "name": "virtualMachine",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The virtual machine name"
+                    }
+                ]
+        }
+
+
     },
     "definitions": {
         "AccountDetails": {
@@ -2875,15 +2849,15 @@
                         "type": "string"
                     },
                     "description": "List of the users logged onto this virtual machine."
-                },
-            "description": "The virtual machine details."
+                }
             },
-		},
-       "VmDetail": {
+            "description": "The virtual machine details."
+        },
+        "VmDetails": {
             "properties": {
                 "properties": {
                     "$ref": "#/definitions/VmDetailProperties",
-                    "description": "VmDetail properties."
+                    "description": "VmDetails properties."
                 },
                 "etag": {
                     "type": "string",
@@ -2901,12 +2875,12 @@
             ],
             "description": "The response for the get virtual machine operation."
         },
-       "VirtualMachineDetailsListResult": {
+        "VirtualMachineDetailsListResult": {
             "properties": {
                 "value": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/VmDetail"
+                        "$ref": "#/definitions/VmDetails"
                     },
                     "description": "A list of virtual machine details"
                 },
@@ -2948,10 +2922,10 @@
                 "logoffWaitTimeInSeconds": {
                     "type": "integer",
                     "description": "Time to wait before restarting the virtual machine."
-                },
-            "description": "The virtual machine details."
+                }
             },
-		},		
+            "description": "The virtual machine details."
+        },
         "Resource": {
             "properties": {
                 "id": {
