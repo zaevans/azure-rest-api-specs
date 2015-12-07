@@ -1416,7 +1416,163 @@
                     "description": "The name of the resource group"
                 }
             ]
-        }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_ListVms",
+                "description": "Gets the list of virtual machines in this collection.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/VirtualMachineDetailsListResult"
+                        }
+                    }
+                },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                }
+            ]
+            },			
+        },
+		"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms/{virtualMachine}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_GetVm",
+                "description": "Gets the virtual machine in this collection.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/VmDetail"
+                        }
+                    }
+                },
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                },
+                {
+                    "name": "virtualMachine",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The virtual machine name"
+                }								
+            ]
+            },			
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{armNamespace}/collections/{collectionName}/vms/{virtualMachine}": {
+           "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "operationId": "Collection_RestartVm",
+                "description": "Restarts the virtual machine.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/armNamespace"
+                    },
+                    {
+                        "$ref": "#/parameters/apiVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    },
+                    {
+                        "name": "details",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/VmCommandDetailsWrapper"
+                        },
+                        "description": "The LogoffMessage and time to wait before restarting the virtual machine"
+                    },					
+                ],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                    }
+                },
+				"x-ms-long-running-operation": true,
+            "parameters": [
+                {
+                    "name": "collectionName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The collection name."
+                },
+                {
+                    "name": "resourceGroupName",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The name of the resource group"
+                },
+                {
+                    "name": "virtualMachine",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "The virtual machine name"
+                }				
+            ]				
+            }
+		}	
     },
     "definitions": {
         "AccountDetails": {
@@ -2707,6 +2863,95 @@
             },
             "description": "URI information about the usage details CSV file"
         },
+        "VmDetailProperties": {
+            "properties": {
+                "virtualMachineName": {
+                    "type": "string",
+                    "description": "The virtual machine name."
+                },
+                "loggedOnUserUpn": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of the users logged onto this virtual machine."
+                },
+            "description": "The virtual machine details."
+            },
+		},
+       "VmDetail": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/VmDetailProperties",
+                    "description": "VmDetail properties."
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "The URL for requesting next page of resources."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "The response for the get virtual machine operation."
+        },
+       "VirtualMachineDetailsListResult": {
+            "properties": {
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VmDetail"
+                    },
+                    "description": "A list of virtual machine details"
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "URL to use for request paging."
+                }
+            },
+            "description": "A list of virtual machine details"
+        },
+        "VmCommandDetailsWrapper": {
+            "properties": {
+                "properties": {
+                    "$ref": "#/definitions/VmCommandDetailsAll",
+                    "description": "Virtual machine properties"
+                },
+                "etag": {
+                    "type": "string",
+                    "description": "The etag of the resource."
+                },
+                "nextLink": {
+                    "type": "string",
+                    "description": "The URL for requesting next page of resources."
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "Resource"
+                }
+            ],
+            "description": "A wrapper for virtual machine command details to be used as a parameter"
+        },
+        "VmCommandDetailsAll": {
+            "properties": {
+                "logoffMessage": {
+                    "type": "string",
+                    "description": "Message to display to the user."
+                },
+                "logoffWaitTimeInSeconds": {
+                    "type": "integer",
+                    "description": "Time to wait before restarting the virtual machine."
+                },
+            "description": "The virtual machine details."
+            },
+		},		
         "Resource": {
             "properties": {
                 "id": {
