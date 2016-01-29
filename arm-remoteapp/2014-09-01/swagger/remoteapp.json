@@ -2173,6 +2173,10 @@
                     "type": "string",
                     "description": "The last operation error code on this collection."
                 },
+                "virtualNetworkId": {
+                    "type": "string",
+                    "description": "The ID of the Vnet for this collection."
+                },
                 "vnetName": {
                     "type": "string",
                     "description": "The VNet name associated with this collection."
