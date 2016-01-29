@@ -2758,7 +2758,7 @@
                     "format": "int64",
                     "description": "The image size in bytes"
                 },
-                "templateImageStatus": {
+                "status": {
                     "type": "string",
                     "description": "The status of the template image",
                     "enum": [
